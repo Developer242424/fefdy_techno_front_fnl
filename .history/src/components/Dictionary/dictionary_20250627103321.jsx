@@ -57,7 +57,7 @@ export default function Dictionary({ onClose }) {
               <h1 className="t-title">
                 Dictionary:{" "}
                 <span className="di-title">
-                  What word do you want to look up 123?
+                  What word do you want to look up?
                 </span>
               </h1>
               <button className="btn closeBtn" onClick={onClose}>
