@@ -1,0 +1,1049 @@
+/* === Responsive Scaling Container for Map === */
+.map-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  aspect-ratio: 18 / 9;
+}
+
+.map-scaled {
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+}
+
+@media (max-width: 1920px) {
+  .map-scaled {
+    transform: scale(calc(100vw / 1920));
+  }
+}
+
+/* === Your Original Styles (Unchanged) === */
+.map {
+  position: relative;
+  width: 100%;
+  height: 482px;
+  margin: 0rem auto;
+  border-radius: 20px;
+  overflow: show;
+  top: 0%;
+  left: 0px;
+  background-image: url("../../defaults/img/levels-bg1.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.level {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.level-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge {
+  width: 50px;
+  height: 50px;
+  background: gold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.badge img {
+  width: 50px;
+  height: 50px;
+}
+
+.level.completed .badge {
+  background-color: #b2f2bb !important;
+  color: black;
+  border: 5px solid #fff;
+}
+
+.level.active .badge {
+  background-color: #ffffff !important;
+  color: white;
+  border: 5px solid #92dfa6;
+}
+
+.level.inactive .badge {
+  background-color: #dfdfdf !important;
+  color: black;
+  border: 5px solid #fff;
+}
+
+.info {
+  position: absolute;
+  top: 60px;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  width: max-content;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.info-left {
+  flex-shrink: 0;
+}
+
+.info-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inactive strong {
+  background-color: #9b9b9b !important;
+}
+
+.info-right h4 {
+  font-size: 18px;
+  margin: 0px;
+}
+
+.info strong {
+  display: inline-block;
+  background-color: #b4b4b4;
+  color: #fff;
+  padding: 7px 8px;
+  border-radius: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.align-self-start {
+  display: ruby;
+}
+@media (min-width: 200px) and (max-width: 500px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+  .text-theme-colore-1 {
+    font-size: 18px;
+  }
+
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  /* .l1 { top: 200px; left: 230px; }
+.l2 { top: 430px; left: 460px; }
+.l3 { top: 170px; left: 547px; }
+.l4 { top: 250px; left: 760px; }
+.l5 { top: 400px; left: 900px; }
+.l6 { top: 280px; left: 1067px; }
+.l7 { top: 140px; left: 1100px; }
+.l8 { top: 380px; left: 1330px; } */
+  .l1 {
+    top: 200px;
+    left: 280px;
+  }
+  .l2 {
+    top: 430px;
+    left: 500px;
+  }
+  .l3 {
+    top: 170px;
+    left: 597px;
+  }
+  .l4 {
+    top: 250px;
+    left: 830px;
+  }
+  .l5 {
+    top: 400px;
+    left: 950px;
+  }
+  .l6 {
+    top: 280px;
+    left: 1117px;
+  }
+  .l7 {
+    top: 140px;
+    left: 1160px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1380px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+@media (min-width: 501px) and (max-width: 1000px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+  .text-theme-colore-1 {
+    font-size: 25px;
+  }
+
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  /* .l1 { top: 200px; left: 230px; }
+.l2 { top: 430px; left: 460px; }
+.l3 { top: 170px; left: 547px; }
+.l4 { top: 250px; left: 760px; }
+.l5 { top: 400px; left: 900px; }
+.l6 { top: 280px; left: 1067px; }
+.l7 { top: 140px; left: 1100px; }
+.l8 { top: 380px; left: 1330px; } */
+  .l1 {
+    top: 200px;
+    left: 100px;
+  }
+  .l2 {
+    top: 430px;
+    left: 300px;
+  }
+  .l3 {
+    top: 170px;
+    left: 397px;
+  }
+  .l4 {
+    top: 250px;
+    left: 630px;
+  }
+  .l5 {
+    top: 400px;
+    left: 750px;
+  }
+  .l6 {
+    top: 280px;
+    left: 920px;
+  }
+  .l7 {
+    top: 140px;
+    left: 990px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1180px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1500px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+
+  .text-theme-colore-1 {
+    font-size: 25px;
+  }
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  /* .l1 { top: 200px; left: 230px; }
+.l2 { top: 430px; left: 460px; }
+.l3 { top: 170px; left: 547px; }
+.l4 { top: 250px; left: 760px; }
+.l5 { top: 400px; left: 900px; }
+.l6 { top: 280px; left: 1067px; }
+.l7 { top: 140px; left: 1100px; }
+.l8 { top: 380px; left: 1330px; } */
+  .l1 {
+    top: 200px;
+    left: 90px;
+  }
+  .l2 {
+    top: 430px;
+    left: 320px;
+  }
+  .l3 {
+    top: 170px;
+    left: 420px;
+  }
+  .l4 {
+    top: 250px;
+    left: 630px;
+  }
+  .l5 {
+    top: 400px;
+    left: 850px;
+  }
+  .l6 {
+    top: 180px;
+    left: 920px;
+  }
+  .l7 {
+    top: 240px;
+    left: 1060px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1188px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+
+@media (min-width: 1501px) and (max-width: 1600px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+  .text-theme-colore-1 {
+    font-size: 25px;
+  }
+
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  .l1 {
+    top: 200px;
+    left: 180px;
+  }
+  .l2 {
+    top: 430px;
+    left: 380px;
+  }
+  .l3 {
+    top: 170px;
+    left: 480px;
+  }
+  .l4 {
+    top: 250px;
+    left: 690px;
+  }
+  .l5 {
+    top: 400px;
+    left: 860px;
+  }
+  .l6 {
+    top: 280px;
+    left: 987px;
+  }
+  .l7 {
+    top: 140px;
+    left: 1020px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1250px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+
+@media (min-width: 1601px) and (max-width: 1800px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+  .text-theme-colore-1 {
+    font-size: 25px;
+  }
+
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  .l1 {
+    top: 200px;
+    left: 250px;
+  }
+  .l2 {
+    top: 430px;
+    left: 430px;
+  }
+  .l3 {
+    top: 170px;
+    left: 547px;
+  }
+  .l4 {
+    top: 250px;
+    left: 790px;
+  }
+  .l5 {
+    top: 400px;
+    left: 910px;
+  }
+  .l6 {
+    top: 280px;
+    left: 1087px;
+  }
+  .l7 {
+    top: 140px;
+    left: 1120px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1350px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+@media (min-width: 1801px) and (max-width: 2000px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+
+  .text-theme-colore-1 {
+    font-size: 25px;
+  }
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  .l1 {
+    top: 200px;
+    left: 175px;
+  }
+  .l2 {
+    top: 430px;
+    left: 380px;
+  }
+  .l3 {
+    top: 170px;
+    left: 507px;
+  }
+  .l4 {
+    top: 250px;
+    left: 710px;
+  }
+  .l5 {
+    top: 400px;
+    left: 860px;
+  }
+  .l6 {
+    top: 280px;
+    left: 1007px;
+  }
+  .l7 {
+    top: 140px;
+    left: 1060px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1270px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: 80px;
+    top: 20px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+
+@media (min-width: 2001px) and (max-width: 6000px) {
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 2%;
+    height: 65vh;
+  }
+
+  .levels1 strong {
+    background-color: #f88b93;
+  }
+  .levels2 strong {
+    background-color: #58e296;
+  }
+  .levels3 strong {
+    background-color: #e2cf67;
+  }
+  .levels4 strong {
+    background-color: #48aada;
+  }
+  .levels5 strong {
+    background-color: #da5be0;
+  }
+  .levels6 strong {
+    background-color: #58dde2;
+  }
+  .levels7 strong {
+    background-color: #c3d535;
+  }
+  .levels8 strong {
+    background-color: #f8cb8b;
+  }
+
+  .l1 {
+    top: 200px;
+    left: 280px;
+  }
+  .l2 {
+    top: 430px;
+    left: 500px;
+  }
+  .l3 {
+    top: 170px;
+    left: 597px;
+  }
+  .l4 {
+    top: 250px;
+    left: 830px;
+  }
+  .l5 {
+    top: 400px;
+    left: 950px;
+  }
+  .l6 {
+    top: 280px;
+    left: 1117px;
+  }
+  .l7 {
+    top: 140px;
+    left: 1160px;
+  }
+  .l8 {
+    top: 380px;
+    left: 1380px;
+  }
+
+  .path-segment {
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .levels1 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels2 {
+    position: relative;
+    left: -30px;
+    top: -60px;
+  }
+  .levels3 {
+    position: relative;
+    right: -30px;
+    top: 10px;
+  }
+  .levels4 {
+    position: relative;
+    right: -100px;
+    top: -140px;
+  }
+  .levels5 {
+    position: relative;
+    right: 30px;
+    top: -60px;
+  }
+  .levels6 {
+    position: relative;
+    left: 90px;
+    top: 10px;
+  }
+  .levels7 {
+    position: relative;
+    left: 230px;
+    top: -60px;
+  }
+  .levels8 {
+    position: relative;
+    left: 30px;
+    top: 10px;
+  }
+}
+
+.icon-type-font-icon img {
+  border-radius: 20%;
+}
