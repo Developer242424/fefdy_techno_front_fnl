@@ -8,6 +8,7 @@ import ico4 from "../../defaults/img/ico-4.png";
 import ico5 from "../../defaults/img/ico-5.png";
 import ico6 from "../../defaults/img/ico-6.png";
 import activity from "../../defaults/img/activity.gif";
+import activity_match from "../../defaults/img/activity_match.gif";
 
 import titleicon from "../../defaults/img/title-icon.png";
 import axios from "axios";
