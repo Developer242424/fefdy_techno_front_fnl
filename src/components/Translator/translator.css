@@ -28,7 +28,8 @@
   width: 100%;
   z-index: 1;
   height: 71vh !important;
-  padding-top: 5%;
+  /* padding-top: 5%; */
+  padding-top: 0px;
 }
 
 div#chatBoxtwo {

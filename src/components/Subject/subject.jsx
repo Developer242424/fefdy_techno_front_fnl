@@ -12,6 +12,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 
+import top_bg from "../../defaults/img/top_bg.png";
+import science from "../../defaults/img/science.png";
+import subject_img from "../../defaults/img/subject_img.jpg";
+
 function Subject() {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -51,6 +55,12 @@ function Subject() {
   const nextPage = (subject) => {
     localStorage.setItem("subject", JSON.stringify(subject));
     navigate("/topic");
+  };
+
+  const nextPage1 = (subject, topic) => {
+    localStorage.setItem("subject", JSON.stringify(subject));
+    localStorage.setItem("topic", JSON.stringify(topic));
+    navigate("/level");
   };
 
   const settings = {
@@ -100,38 +110,51 @@ function Subject() {
                 <Slider {...settings} className="carousel-items">
                   {subjects.length > 0 ? (
                     subjects.map((value, index) => {
-                      const subClassNumber = (index % 5) + 1;
+                      const subClassNumber = (index % 4) + 1;
                       return (
                         // <div key={index} className="carousel-item">
-                        <div className={`item basic c${subClassNumber}`}>
-                          <img
-                            className="item-img"
-                            src={publicURL + value.thumbnail}
-                            alt=""
-                            width="70%"
-                            height="300px"
-                            style={{
-                              borderRadius: "50%",
-                              border: "5px solid #e8fff6",
-                              marginTop: "4px",
-                            }}
-                          />
-                          <h3>{value.subject}</h3>
-                          <ul key={index} className="subject-li">
+                        <div class="card subject_card">
+                          {/* <div className="card-body"> */}
+                          <div class={`header-img${subClassNumber}`}>
+                            <h2>{value.subject}</h2>
+                          </div>
+
+                          <div class="avatar-container">
+                            <img
+                              src={publicURL + value.thumbnail}
+                              alt="avatar"
+                            />
+                          </div>
+                          <div class="social-links">
                             {value.topics.length > 0 ? (
                               value.topics.map((value1, index1) => (
-                                <li key={index1}>
-                                  <i className="fa fa-star"></i>
-                                  {value1.title}
-                                </li>
+                                <a
+                                  href="#"
+                                  class="social-card"
+                                  onClick={() => nextPage1(value.id, value1.id)}
+                                >
+                                  <span>
+                                    <i class="fa fa-star"></i> {value1.title}
+                                  </span>
+                                </a>
                               ))
                             ) : (
                               <p>-</p>
                             )}
-                          </ul>
-                          <button onClick={() => nextPage(value.id)}>
-                            Let's go
-                          </button>
+                          </div>
+                          {/* </div> */}
+                          {/* <div className="card-footer"> */}
+                          <div class="text-center go_button_div">
+                            {" "}
+                            <button
+                              type="button"
+                              class="btn btn-primary go_button"
+                              onClick={() => nextPage(value.id)}
+                            >
+                              Let's Go
+                            </button>
+                          </div>
+                          {/* </div> */}
                         </div>
                         // </div>
                       );
