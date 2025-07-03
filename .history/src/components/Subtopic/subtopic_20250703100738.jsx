@@ -416,7 +416,7 @@ function Subtopic() {
               <li className={`nav-item`}>
                 <a
                   target="_blank"
-                  href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}
+                  href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
                   className={`nav-link `}
                 >
                   <span className="title">

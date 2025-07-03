@@ -222,7 +222,7 @@ function Subtopic() {
     const seconds = Math.floor(secs % 60)
       .toString()
       .padStart(2, "0");
-    return `${minutes}:${seconds}`;
+    return ${minutes}:${seconds};
   };
 
   useEffect(() => {
@@ -258,8 +258,8 @@ function Subtopic() {
       ? Math.round((completedSubtopics / totalSubtopics) * 100)
       : 0;
 
-  // console.log(`Completed: ${completedSubtopics}/${totalSubtopics}`);
-  // console.log(`Progress: ${completionPercentage}%`);
+  // console.log(Completed: ${completedSubtopics}/${totalSubtopics});
+  // console.log(Progress: ${completionPercentage}%);
 
   // console.log("sub len: "+subtopics.length);
   // console.log("comp sub len: "+completed_subs.length);
@@ -278,9 +278,8 @@ function Subtopic() {
                     className="tm-sc-funfact funfact funfact-lefticon mb-20 text-md-center text-lg-start"
                   >
                     <div
-                      className={`funfact-icon float-left mr-40 bg-theme-colored1${
-                        topic === value.id ? " active" : ""
-                      }`}
+                      className={`funfact-icon float-left mr-40 bg-theme-colored1${topic === value.id ? " active" : ""
+                        }`}
                       style={{ cursor: "pointer" }}
                       onClick={() => levelPage(value.id)}
                     >
@@ -325,7 +324,7 @@ function Subtopic() {
               <div className="progress-container">
                 <div
                   className="progress"
-                  style={{ height: `${completionPercentage}%` }}
+                  style={{ height: ${completionPercentage}% }}
                   id="progress_step_path"
                 ></div>
                 <ul className="step-progress">
@@ -333,9 +332,8 @@ function Subtopic() {
                     subtopics.map((value, index) => (
                       <li
                         key={value.id}
-                        className={`step ${
-                          activeLeftTab?.id === value.id ? "active_step" : ""
-                        }`}
+                        className={`step ${activeLeftTab?.id === value.id ? "active_step" : ""
+                          }`}
                       >
                         <a
                           href="#"
@@ -345,12 +343,11 @@ function Subtopic() {
                           }}
                         >
                           <span
-                            className={`circle2 ${
-                              activeLeftTab?.id === value.id ||
-                              value.is_completed === 1
+                            className={`circle2 ${activeLeftTab?.id === value.id ||
+                                value.is_completed === 1
                                 ? "active"
                                 : ""
-                            }`}
+                              }`}
                           >
                             {index + 1}
                           </span>
@@ -380,16 +377,14 @@ function Subtopic() {
                 return (
                   <li
                     key={value.id}
-                    className={`nav-item ${
-                      activeTabItem?.id === value.id ? "active" : ""
-                    }`}
+                    className={`nav-item ${activeTabItem?.id === value.id ? "active" : ""
+                      }`}
                     onClick={() => setActiveTabItem(value)}
                   >
                     <a
                       href="#"
-                      className={`nav-link ${
-                        activeTabItem?.id === value.id ? "active" : ""
-                      }`}
+                      className={`nav-link ${activeTabItem?.id === value.id ? "active" : ""
+                        }`}
                       onClick={(e) => e.preventDefault()}
                     >
                       <span className="title">
@@ -402,7 +397,7 @@ function Subtopic() {
                   </li>
                 );
               })}
-              <li className={`nav-item`}>
+              <li className={nav-item}>
                 <a
                   target="_blank"
                   href={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
@@ -412,8 +407,7 @@ function Subtopic() {
                     <img style={{ height: "100%" }} src={activity} />
                   </span>
                 </a>
-              </li>
-              <li className={`nav-item`}>
+              </li><li className={nav-item}>
                 <a
                   target="_blank"
                   href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}
@@ -470,9 +464,9 @@ function Subtopic() {
                         {activeTabItem?.cat_data?.source?.includes(
                           "youtube.com"
                         ) ||
-                        activeTabItem?.cat_data?.source?.includes(
-                          "youtu.be"
-                        ) ? (
+                          activeTabItem?.cat_data?.source?.includes(
+                            "youtu.be"
+                          ) ? (
                           <div
                             style={{ position: "relative", paddingTop: "42vh" }}
                           >
