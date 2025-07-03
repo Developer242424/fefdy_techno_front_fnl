@@ -145,6 +145,7 @@ function Subject() {
                           {/* </div> */}
                           {/* <div className="card-footer"> */}
                           <div class="text-center go_button_div">
+                            {/* {" "} */}
                             <button
                               type="button"
                               class="btn btn-primary go_button"
