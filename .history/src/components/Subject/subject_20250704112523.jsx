@@ -114,19 +114,7 @@ function Subject() {
                       return (
                         // <div key={index} className="carousel-item">
                         <div>
-                          <div
-                            class="card subject_card"
-                            style={{
-                              background: value.background
-                                ? `#e4fff6 url(${
-                                    publicURL + value.background
-                                  }) no-repeat bottom center`
-                                : "#e4fff6",
-                              backgroundSize: "cover",
-                              width: "100%",
-                              display: "inline-block",
-                            }}
-                          >
+                          <div class="card subject_card">
                             {/* <div className="card-body"> */}
                             <div class={`header-img${subClassNumber}`}>
                               <h2>{value.subject}</h2>

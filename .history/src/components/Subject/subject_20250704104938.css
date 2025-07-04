@@ -999,8 +999,8 @@ li.row.to {
 
 @media (max-width: 1750px) and (min-width: 1730px) {
   .subject_card {
-    /* background: #e4fff6 url("../../defaults/img/science.png") no-repeat bottom
-      center; */
+    background: #e4fff6 url("../../defaults/img/science.png") no-repeat bottom
+      center;
     border-radius: 20px;
     border-radius: 20px;
     padding: 20px;

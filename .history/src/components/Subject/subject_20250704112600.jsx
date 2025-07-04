@@ -117,11 +117,9 @@ function Subject() {
                           <div
                             class="card subject_card"
                             style={{
-                              background: value.background
-                                ? `#e4fff6 url(${
-                                    publicURL + value.background
-                                  }) no-repeat bottom center`
-                                : "#e4fff6",
+                              background: `#e4fff6 url(${
+                                publicURL + value.background
+                              }) no-repeat bottom center`,
                               backgroundSize: "cover",
                               width: "100%",
                               display: "inline-block",

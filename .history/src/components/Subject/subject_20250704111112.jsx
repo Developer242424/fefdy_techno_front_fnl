@@ -113,63 +113,57 @@ function Subject() {
                       const subClassNumber = (index % 4) + 1;
                       return (
                         // <div key={index} className="carousel-item">
-                        <div>
-                          <div
-                            class="card subject_card"
-                            style={{
-                              background: value.background
-                                ? `#e4fff6 url(${
-                                    publicURL + value.background
-                                  }) no-repeat bottom center`
-                                : "#e4fff6",
-                              backgroundSize: "cover",
-                              width: "100%",
-                              display: "inline-block",
-                            }}
-                          >
-                            {/* <div className="card-body"> */}
-                            <div class={`header-img${subClassNumber}`}>
-                              <h2>{value.subject}</h2>
-                            </div>
-
-                            <div class="avatar-container">
-                              <img
-                                src={publicURL + value.thumbnail}
-                                alt="avatar"
-                              />
-                            </div>
-                            <div class="social-links">
-                              {value.topics.length > 0 ? (
-                                value.topics.map((value1, index1) => (
-                                  <a
-                                    href="#"
-                                    class="social-card"
-                                    onClick={() =>
-                                      nextPage1(value.id, value1.id)
-                                    }
-                                  >
-                                    <span>
-                                      <i class="fa fa-star"></i> {value1.title}
-                                    </span>
-                                  </a>
-                                ))
-                              ) : (
-                                <p>-</p>
-                              )}
-                            </div>
-                            {/* </div> */}
-                            {/* <div className="card-footer"> */}
-                            <div class="text-center go_button_div">
-                              <button
-                                type="button"
-                                class="btn btn-primary go_button"
-                                onClick={() => nextPage(value.id)}
-                              >
-                                Let's Go
-                              </button>
-                            </div>
-                            {/* </div> */}
+                        <div
+                          className="card subject_card"
+                          style={{
+                            background: value.background
+                              ? `#e4fff6 url(${
+                                  publicURL + value.background
+                                }) no-repeat bottom center`
+                              : "#e4fff6",
+                            backgroundSize: "cover",
+                          }}
+                        >
+                          {/* <div className="card-body"> */}
+                          <div class={`header-img${subClassNumber}`}>
+                            <h2>{value.subject}</h2>
                           </div>
+
+                          <div class="avatar-container">
+                            <img
+                              src={publicURL + value.thumbnail}
+                              alt="avatar"
+                            />
+                          </div>
+                          <div class="social-links">
+                            {value.topics.length > 0 ? (
+                              value.topics.map((value1, index1) => (
+                                <a
+                                  href="#"
+                                  class="social-card"
+                                  onClick={() => nextPage1(value.id, value1.id)}
+                                >
+                                  <span>
+                                    <i class="fa fa-star"></i> {value1.title}
+                                  </span>
+                                </a>
+                              ))
+                            ) : (
+                              <p>-</p>
+                            )}
+                          </div>
+                          {/* </div> */}
+                          {/* <div className="card-footer"> */}
+                          <div class="text-center go_button_div">
+                            <button
+                              type="button"
+                              class="btn btn-primary go_button"
+                              onClick={() => nextPage(value.id)}
+                            >
+                              Let's Go
+                            </button>
+                          </div>
+                          {/* </div> */}
                         </div>
                         // </div>
                       );
