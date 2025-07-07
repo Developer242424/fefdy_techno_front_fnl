@@ -21,7 +21,7 @@ import DicImg from "./defaults/img/dis.png";
 import CompImg from "./defaults/img/l-ico-1.gif";
 import ProcImg from "./defaults/img/l-ico-2.gif";
 import axios from "axios";
-import CertificateModal from "./components/Certificate/certificatemodal";
+import CertificateModal from "./components/certificatemodal";
 
 function LayoutWrapper({ children }) {
   const location = useLocation();

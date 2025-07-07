@@ -21,7 +21,6 @@ import DicImg from "./defaults/img/dis.png";
 import CompImg from "./defaults/img/l-ico-1.gif";
 import ProcImg from "./defaults/img/l-ico-2.gif";
 import axios from "axios";
-import CertificateModal from "./components/Certificate/certificatemodal";
 
 function LayoutWrapper({ children }) {
   const location = useLocation();
@@ -34,10 +33,6 @@ function LayoutWrapper({ children }) {
   const [topics, setTopics] = useState([]);
   const [topicData, setTopicData] = useState([]);
   const [levelData, setLevelData] = useState([]);
-  const [showCertificateModal, setShowCertificateModal] = useState(false);
-
-  const openModal = () => setShowCertificateModal(true);
-  const closeModal = () => setShowCertificateModal(false);
 
   useEffect(() => {
     if (location.pathname !== "/login") {
@@ -261,13 +256,6 @@ function LayoutWrapper({ children }) {
                   >
                     <i class="fa fa-home" aria-hidden="true"></i>
                   </a>{" "}
-                </div>
-                <div className="home-btn">
-                  {" "}
-                  <button onClick={openModal}>Open Modal</button>{" "}
-                  {showCertificateModal && (
-                    <CertificateModal onClose={closeModal} />
-                  )}
                 </div>
               </div>
 

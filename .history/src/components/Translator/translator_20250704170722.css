@@ -78,7 +78,7 @@ div#chatBoxtwo {
   /* top: 553px; */
   /* top: 450px; */
   cursor: pointer;
-  z-index: 999999999;
+  z-index: 9999999999;
 }
 
 .navButt {
@@ -379,4 +379,93 @@ i.fas.fa-exchange-alt {
 #to,
 #from {
   cursor: pointer;
+}
+
+
+@media (max-width: 1536px) {
+  .navButt {
+    position: relative;
+    left: 87pc;
+    bottom: 15pc;
+  }
+
+  .tm-sc-nav-tabs-levels.nav-tab-btn-button.button-rounded {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: -14px;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: 1;
+    padding-top: 1%;
+    height: 63vh;
+    overflow: auto;
+    scrollbar-width: none !important;
+  }
+
+  .icon-box-wrapper-1 {
+    background: #ddc2ff;
+    border: 5px solid #e4fff6;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+    left: 18px;
+    width: 395px;
+    height: 76px;
+    top: -1px;
+  }
+
+  .levels2 {
+    position: relative;
+    left: -31px;
+    top: -57px;
+  }
+
+  .l2 {
+    top: 389px;
+    left: 380px;
+  }
+
+  .levels7 {
+    position: relative;
+    left: 218px;
+    top: -59px;
+  }
+
+  .levels8 {
+    position: relative;
+    left: -15px;
+    top: -30px;
+    /* right: 21pc; */
+  }
+
+  .badge.L1 {
+    POSITION: relative;
+    bottom: 26px;
+    right: 55px;
+  }
+
+  .levels1 {
+    position: relative;
+    left: 20px;
+    top: -14px;
+  }
+
+  .info strong {
+    display: inline-block;
+    background-color: #b4b4b4;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+    width: fit-content;
+  }
 }

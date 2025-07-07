@@ -21,7 +21,7 @@ import DicImg from "./defaults/img/dis.png";
 import CompImg from "./defaults/img/l-ico-1.gif";
 import ProcImg from "./defaults/img/l-ico-2.gif";
 import axios from "axios";
-import CertificateModal from "./components/Certificate/certificatemodal";
+import CertificateModal from "./components/certificatemodal";
 
 function LayoutWrapper({ children }) {
   const location = useLocation();
@@ -36,8 +36,8 @@ function LayoutWrapper({ children }) {
   const [levelData, setLevelData] = useState([]);
   const [showCertificateModal, setShowCertificateModal] = useState(false);
 
-  const openModal = () => setShowCertificateModal(true);
-  const closeModal = () => setShowCertificateModal(false);
+  const openModal = () => showCertificateModal(true);
+  const closeModal = () => showCertificateModal(false);
 
   useEffect(() => {
     if (location.pathname !== "/login") {
