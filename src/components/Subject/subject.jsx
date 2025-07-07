@@ -118,9 +118,8 @@ function Subject() {
                             class="card subject_card"
                             style={{
                               background: value.background
-                                ? `#e4fff6 url(${
-                                    publicURL + value.background
-                                  }) no-repeat bottom center`
+                                ? `#e4fff6 url(${publicURL + value.background
+                                }) no-repeat bottom center`
                                 : "#e4fff6",
                               backgroundSize: "cover",
                               width: "100%",
@@ -140,19 +139,30 @@ function Subject() {
                             </div>
                             <div class="social-links">
                               {value.topics.length > 0 ? (
-                                value.topics.map((value1, index1) => (
-                                  <a
-                                    href="#"
-                                    class="social-card"
-                                    onClick={() =>
-                                      nextPage1(value.id, value1.id)
-                                    }
-                                  >
-                                    <span>
-                                      <i class="fa fa-star"></i> {value1.title}
-                                    </span>
-                                  </a>
-                                ))
+                                value.topics.map((value1, index1) => {
+                                  return value.is_purchased === 1 ? (
+                                    <a
+                                      href="#"
+                                      className="social-card purchased"
+                                      onClick={() => nextPage1(value.id, value1.id)}
+                                      key={index1}
+                                    >
+                                      <span>
+                                        <i className="fa fa-star"></i> {value1.title}
+                                      </span>
+                                    </a>
+                                  ) : (
+                                    <a
+                                      href="#"
+                                      className="social-card locked"
+                                      key={index1}
+                                    >
+                                      <span>
+                                        <i className="fa fa-lock"></i> {value1.title}
+                                      </span>
+                                    </a>
+                                  );
+                                })
                               ) : (
                                 <p>-</p>
                               )}
