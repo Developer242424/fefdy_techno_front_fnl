@@ -7,6 +7,7 @@ export default function Modal({ onClose }) {
       <div style={styles.modal}>
         <Certificate />
         <button onClick={onClose}>Close</button>
+        <button>Download</button>
       </div>
     </div>
   );

@@ -1,10 +1,43 @@
 import React from "react";
+import "./content.css"
 
 const Certificate = () => {
   return (
-    <div>
-      <h2>Modal Content</h2>
-      <p>This is the modal body.</p>
+    <div class="certificate">
+        <div class="inner-border">
+
+            <img src="corner.png" class="corner tl" />
+            <img src="corner.png" class="corner tr" />
+            <img src="corner.png" class="corner bl" />
+            <img src="corner.png" class="corner br" />
+
+
+            <h1 class="certificate-title">CERTIFICATE</h1>
+            <h2 class="certificate-subtitle">OF APPRECIATION</h2>
+            <p class="presented">THIS CERTIFICATE IS PROUDLY PRESENTED TO</p>
+            <div class="recipient-container">
+                <div class="recipient">Thanikachalam Venkataramanan</div>
+                <div class="line"></div>
+            </div>
+
+            <p class="description">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpat.
+            </p>
+
+            <div class="footer">
+                <div class="footer-box">
+                    <div class="line"></div>
+                    <span>DATE</span>
+                </div>
+                <div class="footer-box">
+                    <div class="line"></div>
+                    <span>SIGNATURE</span>
+                </div>
+            </div>
+
+
+        </div>
     </div>
   );
 };
