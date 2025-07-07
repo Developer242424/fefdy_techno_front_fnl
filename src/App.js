@@ -262,9 +262,9 @@ function LayoutWrapper({ children }) {
                     <i class="fa fa-home" aria-hidden="true"></i>
                   </a>{" "}
                 </div>
-                <div className="home-btn">
+                <div className="home-btn1">
                   {" "}
-                  <button onClick={openModal}>Open Modal</button>{" "}
+                  <button className="btn btn-primary" onClick={openModal}>Certificate</button>{" "}
                   {showCertificateModal && (
                     <CertificateModal onClose={closeModal} />
                   )}
@@ -337,9 +337,9 @@ function LayoutWrapper({ children }) {
                 <div className="row align-middle justify-content-center mt-0 mb-0">
                   <div
                     className={`${location.pathname === "/subtopic" ||
-                        location.pathname === "/topic"
-                        ? "col-lg-6"
-                        : "col-lg-4"
+                      location.pathname === "/topic"
+                      ? "col-lg-6"
+                      : "col-lg-4"
                       } col-sm-auto align-self-start`}
                   >
                     <i
@@ -385,9 +385,9 @@ function LayoutWrapper({ children }) {
 
                   <div
                     className={`${location.pathname === "/subtopic" ||
-                        location.pathname === "/topic"
-                        ? "col-lg-6"
-                        : "col-lg-4"
+                      location.pathname === "/topic"
+                      ? "col-lg-6"
+                      : "col-lg-4"
                       } col-sm-auto align-self-end text-right`}
                   >
                     <h3 className="font-2">

@@ -36,7 +36,7 @@ const Certificate = () => {
           throughout the year <span class="recipient-inline">2025</span>.
         </p>
 
-        <div class="footer">
+        <div class="footer_certificate">
           <div class="footer-box">
             <div class="footer-line"></div>
             <span>DATE</span>

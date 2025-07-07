@@ -124,7 +124,13 @@
   line-height: 60px;
 }
 
-.footer {
+.home-btn1 {
+  position: relative;
+  top: -30px;
+  left: 50px;
+}
+
+.footer_certificate {
   display: flex;
   justify-content: space-around;
   align-items: center;

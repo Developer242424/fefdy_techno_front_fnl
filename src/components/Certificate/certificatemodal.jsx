@@ -26,8 +26,8 @@ export default function Modal({ onClose }) {
         <div ref={contentRef}>
           <Certificate />
         </div>
-        <button onClick={onClose}>Close</button>
-        <button onClick={downloadPDF}>Download</button>
+        <button className="btn btn-primary" onClick={onClose}>Close</button>
+        <button className="btn btn-primary" onClick={downloadPDF}>Download</button>
       </div>
     </div>
   );
