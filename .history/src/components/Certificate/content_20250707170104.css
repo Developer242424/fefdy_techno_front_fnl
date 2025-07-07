@@ -60,7 +60,7 @@
   border: 4px solid #d4af37;
   position: relative;
   box-sizing: border-box;
-  background-image: url(../../defaults/img/bg-1.png);
+  background-image: url(bg-1.png);
   display: flex;
   flex-direction: column;
 }
