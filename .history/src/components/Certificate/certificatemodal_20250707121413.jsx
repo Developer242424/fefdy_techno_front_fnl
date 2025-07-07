@@ -11,7 +11,7 @@ export default function Modal({ onClose }) {
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
-        orientation: "landscape",
+        orientation: "portrait",
         unit: "px",
         format: [canvas.width, canvas.height],
       });
@@ -23,9 +23,7 @@ export default function Modal({ onClose }) {
   return (
     <div style={styles.backdrop}>
       <div style={styles.modal}>
-        <div ref={contentRef}>
-          <Certificate />
-        </div>
+        <Certificate />
         <button onClick={onClose}>Close</button>
         <button onClick={downloadPDF}>Download</button>
       </div>
