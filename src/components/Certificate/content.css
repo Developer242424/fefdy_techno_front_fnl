@@ -85,7 +85,7 @@
   text-align: center;
   font-size: 24px;
   color: #666;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .recipient-container {
@@ -120,8 +120,8 @@
   font-size: 22px;
   color: #444;
   max-width: 80%;
-  margin: 20px auto 40px;
-  line-height: 60px;
+  margin: 0px auto 40px;
+  line-height: 50px;
 }
 
 .home-btn1 {
@@ -209,4 +209,19 @@
   display: inline-block;
   padding: 0 4px;
   margin: 0 2px;
+}
+
+.subject_c {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.chapter_c {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.levels_c {
+  font-size: 18px;
+  font-weight: 400;
 }
