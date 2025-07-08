@@ -30,9 +30,9 @@ const Certificate = () => {
                 <p class="description">
                     <span class="recipient-inline">Thanikachalam Venkataramanan</span>,
                     Age:
-                    <span class="recipient-inline">24</span>, for completing the following Subject in the <strong>FEFDY Brain Gym</strong>  with dedication:  <span className="subject_c">Science -</span>  <span className="chapter_c">C1</span>  <span className="levels_c">(L1, L2, L3), </span> <span className="chapter_c">C2</span>  <span className="levels_c">(L1, L2), </span>
-                    <span className="subject_c">Math -</span>  <span className="chapter_c">C1</span>  <span className="levels_c">(L1, L2, L3), </span> <span className="chapter_c">C2</span>  <span className="levels_c">(L1, L2), </span>
-                    <span className="subject_c">English -</span>  <span className="chapter_c">C1</span>  <span className="levels_c">(L1, L2, L3), </span> <span className="chapter_c">C2</span>  <span className="levels_c">(L1, L2), </span>
+                    <span class="recipient-inline">24</span>, for completing the following Subject in the <strong>FEFDY Brain Gym</strong>  with dedication:  <span className="subject_c">Science -</span>  <span className="chapter_c">C1</span>  <span className="levels_c">(L1 - L3), </span> <span className="chapter_c">C2</span>  <span className="levels_c">(L1, L2), </span>
+                    <span className="subject_c">Math -</span>  <span className="chapter_c">C1</span>  <span className="levels_c">(L1 - L3), </span> <span className="chapter_c">C2</span>  <span className="levels_c">(L1 - L2), </span>
+                    <span className="subject_c">English -</span>  <span className="chapter_c">C1</span>  <span className="levels_c">(L1 - L3), </span> <span className="chapter_c">C2</span>  <span className="levels_c">(L1 - L2), </span>
 
                     This achievement is recognized and appreciated throughout the year <span class="recipient-inline">2025</span>.
                 </p>
@@ -47,6 +47,9 @@ const Certificate = () => {
                         <div class="footer-line"></div>
                         <span>FOUNDER OF FEFDY</span>
                     </div>
+                </div>
+                <div className="footer_bottom text-center">
+                    <p>Refer: C1 - Chapter, L1 - Level</p>
                 </div>
             </div>
         </div>
