@@ -96,7 +96,7 @@ const Certificate = () => {
         </div>
         <p class="presented">THIS CERTIFICATE IS PROUDLY PRESENTED TO</p>
         <p class="description">
-          <span class="recipient-inline">{auth.user.name}</span>,
+          <span class="recipient-inline">Thanikachalam Venkataramanan</span>,
           Age:
           <span class="recipient-inline">24</span>, for completing the following
           Subject in the <strong>FEFDY Brain Gym</strong> with dedication:{" "}
@@ -114,16 +114,15 @@ const Certificate = () => {
                 completedTopics.length === filteredTopics.length;
               return (
                 <React.Fragment key={index}>
-                  {" "}
-                  <span className="subject_c">
-                    {value.subject}
-                    {index < subjects.length ? " - " : ""}
-                  </span>
+                  <span className="subject_c">{value.subject} </span>
                   {!allCompleted &&
                     filteredTopics.map((value1, index1) => {
                       return (
                         <span key={index1}>
-                          <span className="chapter_c">C{index1 + 1}</span>{" "}
+                          <span className="chapter_c">
+                            C{index1 + 1}
+                            {index1 < filteredTopics.length - 1 ? ", " : ""}
+                          </span>{" "}
                           <span className="levels_c">
                             {value1.comp_levels > 1
                               ? `(L1 - L${value1.comp_levels})`
@@ -133,11 +132,10 @@ const Certificate = () => {
                         </span>
                       );
                     })}
-                  {index < subjects.length - 1 ? ", " : "."}{" "}
                 </React.Fragment>
               );
             })}
-          {/* <span className="subject_c"> Science -</span>{" "}
+          <span className="subject_c"> Science -</span>{" "}
           <span className="chapter_c">C1</span>{" "}
           <span className="levels_c">(L1 - L3), </span>{" "}
           <span className="chapter_c">C2</span>{" "}
@@ -151,7 +149,7 @@ const Certificate = () => {
           <span className="chapter_c">C1</span>{" "}
           <span className="levels_c">(L1 - L3), </span>{" "}
           <span className="chapter_c">C2</span>{" "}
-          <span className="levels_c">(L1 - L2), </span> */}
+          <span className="levels_c">(L1 - L2), </span>
           This achievement is recognized and appreciated throughout the year{" "}
           <span class="recipient-inline">2025</span>.
         </p>

@@ -11,6 +11,7 @@ import Signature from "../../defaults/img/signature.png";
 const Certificate = () => {
   const [error, setError] = useState(null);
   const [subjects, setSubjects] = useState(null);
+  const [subjectIds, setSubjectIds] = useState(null);
   const [topics, setTopics] = useState([]);
   const { logout, auth, isLoading, setCommonError } = useAuth();
   const subject = JSON.parse(localStorage.getItem("subject"));
@@ -32,7 +33,9 @@ const Certificate = () => {
           );
           const sub_ids = filteredSubjects.map((item) => item.id);
           setSubjects(filteredSubjects);
-          fetchTopics(sub_ids);
+          setSubjectIds(sub_ids);
+          
+          fetchTopics();
         } else if (resData.status === 401) {
           console.error("Error fetching data:", resData.message);
         } else if (resData.status === 400) {
@@ -46,13 +49,13 @@ const Certificate = () => {
       }
     };
 
-    const fetchTopics = async (ids) => {
+    const fetchTopics = async () => {
       try {
         const res = await axios.post(
           `${process.env.REACT_APP_API_URL}certificate`,
           {
             token: auth.token,
-            subjects: ids,
+            subjects: subjectIds,
           }
         );
         // console.log(res);
@@ -96,48 +99,11 @@ const Certificate = () => {
         </div>
         <p class="presented">THIS CERTIFICATE IS PROUDLY PRESENTED TO</p>
         <p class="description">
-          <span class="recipient-inline">{auth.user.name}</span>,
+          <span class="recipient-inline">Thanikachalam Venkataramanan</span>,
           Age:
           <span class="recipient-inline">24</span>, for completing the following
           Subject in the <strong>FEFDY Brain Gym</strong> with dedication:{" "}
-          {subjects &&
-            subjects.length > 0 &&
-            subjects.map((value, index) => {
-              const filteredTopics = topics.filter(
-                (item) => item.subject === value.id
-              );
-              const completedTopics = filteredTopics.filter(
-                (item) => item.comp_levels === item.levels
-              );
-              const allCompleted =
-                filteredTopics.length > 0 &&
-                completedTopics.length === filteredTopics.length;
-              return (
-                <React.Fragment key={index}>
-                  {" "}
-                  <span className="subject_c">
-                    {value.subject}
-                    {index < subjects.length ? " - " : ""}
-                  </span>
-                  {!allCompleted &&
-                    filteredTopics.map((value1, index1) => {
-                      return (
-                        <span key={index1}>
-                          <span className="chapter_c">C{index1 + 1}</span>{" "}
-                          <span className="levels_c">
-                            {value1.comp_levels > 1
-                              ? `(L1 - L${value1.comp_levels})`
-                              : `(L1)`}
-                            {index1 < filteredTopics.length - 1 ? ", " : ""}
-                          </span>
-                        </span>
-                      );
-                    })}
-                  {index < subjects.length - 1 ? ", " : "."}{" "}
-                </React.Fragment>
-              );
-            })}
-          {/* <span className="subject_c"> Science -</span>{" "}
+          <span className="subject_c">Science -</span>{" "}
           <span className="chapter_c">C1</span>{" "}
           <span className="levels_c">(L1 - L3), </span>{" "}
           <span className="chapter_c">C2</span>{" "}
@@ -151,7 +117,7 @@ const Certificate = () => {
           <span className="chapter_c">C1</span>{" "}
           <span className="levels_c">(L1 - L3), </span>{" "}
           <span className="chapter_c">C2</span>{" "}
-          <span className="levels_c">(L1 - L2), </span> */}
+          <span className="levels_c">(L1 - L2), </span>
           This achievement is recognized and appreciated throughout the year{" "}
           <span class="recipient-inline">2025</span>.
         </p>

@@ -96,7 +96,7 @@ const Certificate = () => {
         </div>
         <p class="presented">THIS CERTIFICATE IS PROUDLY PRESENTED TO</p>
         <p class="description">
-          <span class="recipient-inline">{auth.user.name}</span>,
+          <span class="recipient-inline">Thanikachalam Venkataramanan</span>,
           Age:
           <span class="recipient-inline">24</span>, for completing the following
           Subject in the <strong>FEFDY Brain Gym</strong> with dedication:{" "}
@@ -115,25 +115,24 @@ const Certificate = () => {
               return (
                 <React.Fragment key={index}>
                   {" "}
-                  <span className="subject_c">
-                    {value.subject}
-                    {index < subjects.length ? " - " : ""}
-                  </span>
+                  <span className="subject_c">{value.subject}{index < subjects.length ? " - " : ""}</span>
                   {!allCompleted &&
                     filteredTopics.map((value1, index1) => {
                       return (
                         <span key={index1}>
-                          <span className="chapter_c">C{index1 + 1}</span>{" "}
+                          <span className="chapter_c">
+                            C{index1 + 1}
+                          </span>{" "}
                           <span className="levels_c">
                             {value1.comp_levels > 1
                               ? `(L1 - L${value1.comp_levels})`
                               : `(L1)`}
                             {index1 < filteredTopics.length - 1 ? ", " : ""}
+                            {index < subjects.length ? ", " : ""}
                           </span>
                         </span>
                       );
                     })}
-                  {index < subjects.length - 1 ? ", " : "."}{" "}
                 </React.Fragment>
               );
             })}

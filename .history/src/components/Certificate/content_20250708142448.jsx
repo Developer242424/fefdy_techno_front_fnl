@@ -96,8 +96,7 @@ const Certificate = () => {
         </div>
         <p class="presented">THIS CERTIFICATE IS PROUDLY PRESENTED TO</p>
         <p class="description">
-          <span class="recipient-inline">{auth.user.name}</span>,
-          Age:
+          <span class="recipient-inline">{auth.name}</span>, Age:
           <span class="recipient-inline">24</span>, for completing the following
           Subject in the <strong>FEFDY Brain Gym</strong> with dedication:{" "}
           {subjects &&
