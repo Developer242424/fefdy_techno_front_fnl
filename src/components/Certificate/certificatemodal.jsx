@@ -28,6 +28,7 @@ export default function Modal({ onClose }) {
         </div>
         <button className="btn btn-primary" onClick={onClose}>Close</button>
         <button className="btn btn-primary" onClick={downloadPDF}>Download</button>
+        <h3 className="meaning_c">( C1 Meaning - Chapter 1, L1 Meaning - Level 1 )</h3>
       </div>
     </div>
   );
