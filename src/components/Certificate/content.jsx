@@ -155,11 +155,17 @@ const Certificate = () => {
           <span className="chapter_c">C2</span>{" "}
           <span className="levels_c">(L1 - L2), </span> */}
           This achievement is recognized and appreciated throughout the year{" "}
-          <span class="recipient-inline">2025</span>.
+          <span class="recipient-inline">{new Date().getFullYear()}</span>.
         </p>
 
         <div class="footer_certificate">
           <div class="footer-box">
+            {(() => {
+              const d = new Date();
+              return `${String(d.getDate()).padStart(2, "0")}-${String(
+                d.getMonth() + 1
+              ).padStart(2, "0")}-${d.getFullYear()}`;
+            })()}
             <div class="footer-line"></div>
             <span>DATE</span>
           </div>
