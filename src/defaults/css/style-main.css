@@ -1372,7 +1372,7 @@ pre {
 .font-1 {
   color: #e987c2;
   /* padding-top: -20px; */
-  font-size: 28px;
+  font-size: 22px;
 }
 
 .font-2 {
@@ -25908,5 +25908,59 @@ a.mini-cart-icon {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* start */
+
+/* tab screan responsive  */
+
+@media (min-width: 1200px) and (max-width: 1285px) {
+  .navButt {
+    position: relative;
+    left: 67pc !important;
+    bottom: 4pc !important;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1500px) {
+  .l6 {
+    top: 196px !important;
+    left: 780px !important;
+  }
+
+  .levels7 {
+    position: relative;
+    left: 33px !important;
+    top: -124px !important;
+  }
+
+  .l8 {
+    top: 401px !important;
+    left: 1005px !important;
+  }
+
+  .l7 {
+    top: 172px !important;
+    left: 965px !important;
+  }
+
+  .l1 {
+    top: 146px !important;
+    left: 57px !important;
+  }
+
+  .levels1 {
+    position: relative;
+    left: 134px !important;
+    top: 17px !important;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 600px) {
+  .header-img1 h2 {
+    color: #1370b3;
+    left: 0px;
+    font-size: 18px;
   }
 }
