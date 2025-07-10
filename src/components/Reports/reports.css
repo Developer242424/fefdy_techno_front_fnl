@@ -1,0 +1,199 @@
+.tm-sc-nav-tabs-pricing-reports {
+    background-color: #ffd7d7;
+    background-position: center;
+    background-size: cover;
+    border: 14px solid #e4fff6;
+    border-radius: 30px;
+    position: relative;
+    left: 0px !important;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+    height: 63vh;
+    overflow: auto;
+    scrollbar-width: none !important;
+}
+
+
+.table_percen {
+    color: #fff;
+}
+
+.table-container {
+    max-height: auto;
+    overflow-x: auto;
+    /* Enable horizontal scroll */
+    width: auto;
+    height: 42vh;
+    scrollbar-width: thin;
+    scrollbar-color: #e4fff6 transparent;
+}
+
+/* Table with fixed width for columns */
+table.table-fixed {
+    width: 1400px;
+    /* Fixed width instead of 100% */
+    border-collapse: collapse;
+
+}
+
+/* Table cells with padding and borders */
+table.table-fixed th,
+table.table-fixed td {
+    padding: 8px 12px;
+    border: 1px solid #E3FFD7;
+    text-align: left;
+    white-space: nowrap;
+    align-content: baseline;
+}
+
+table td {
+    padding: 0px;
+}
+
+/* Fixed header style */
+table.table-fixed thead th {
+    background-color: #DDC2FF;
+    color: #000;
+    font-size: 26px;
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    z-index: 2;
+}
+
+.read_article {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tab-content {
+    padding: 0px;
+    border: none;
+    min-height: 100px;
+}
+
+ol,
+ul {
+    list-style-position: inside;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.avatar-container_1 img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 10px;
+}
+
+.card-body {
+    max-height: fit-content;
+}
+
+.main-content-area table,
+.comment-body .comment-text table {
+    width: 100%;
+    margin: 0 0 0px;
+}
+
+.rotate-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Rotate the arrow when the accordion item is opened */
+.collapse.show .rotate-icon {
+    transform: rotate(180deg);
+}
+
+.card-header {
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    background-color: #F88B93;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.card-header.complete {
+    background-color: #228322;
+}
+
+.card-header h5 {
+    color: #fff;
+}
+
+table td a {
+    color: #000;
+}
+
+ol,
+ul {
+    padding: 0px 0px 10px 0px;
+}
+
+.table-container table.table-fixed td {
+    padding: 0px;
+}
+
+.table-container table.accord th,
+.table-container table.accord td {
+    padding: 8px 12px;
+}
+
+.scroll_tab {
+    width: 800px;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: inline-flex;
+}
+
+.subject_check {
+    color: #fff;
+    background: green;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.scroll_tab .nav-tabs {
+    flex-wrap: initial;
+    /* prevent wrapping */
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #272727;
+    background-color: #E3FFD7;
+    border-radius: 20px;
+    display: flex;
+    font-size: 30px;
+    padding: 10px 10px;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    color: #272727;
+    background-color: #E3FFD7;
+    border-radius: 20px;
+    display: flex;
+    font-size: 30px;
+    padding: 10px 10px;
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: -1px;
+    border: 1px solid #E3FFD7;
+    background-color: rgba(227, 255, 215, 0.2);
+    /* Light green with 50% opacity */
+    padding: 10px 10px;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    margin: 2px;
+    border-radius: 20px;
+    display: flex;
+    font-size: 30px;
+}
+
+img {
+    max-width: auto !important;
+}

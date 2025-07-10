@@ -128,9 +128,13 @@
 }
 
 .home-btn1 {
-  position: relative;
-  top: -30px;
-  left: 50px;
+  position: absolute;
+  top: 0px;
+  left: 300px;
+}
+
+.refer_c {
+  font-size: 12px;
 }
 
 .footer_certificate {

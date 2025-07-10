@@ -8,12 +8,12 @@
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Fefdy Techno Student Learnig App" />
   <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
-
   <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -40,5 +40,26 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // jQuery to handle the rotation of the icon based on the accordion state
+  $('#accordion').on('show.bs.collapse', function (e) {
+    $(e.target).prev('.card-header').find('.rotate-icon').css('transform', 'rotate(180deg)');
+  });
+
+  $('#accordion').on('hide.bs.collapse', function (e) {
+    $(e.target).prev('.card-header').find('.rotate-icon').css('transform', 'rotate(0deg)');
+  });
+
+  // Initial icon rotation for already open accordion item
+  $(document).ready(function () {
+    $('#accordion .collapse.show').each(function () {
+      $(this).prev('.card-header').find('.rotate-icon').css('transform', 'rotate(180deg)');
+    });
+  });
+</script>
 
 </html>

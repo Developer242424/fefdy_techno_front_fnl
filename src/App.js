@@ -22,7 +22,6 @@ import DicImg from "./defaults/img/dis.png";
 import CompImg from "./defaults/img/l-ico-1.gif";
 import ProcImg from "./defaults/img/l-ico-2.gif";
 import axios from "axios";
-import CertificateModal from "./components/Certificate/certificatemodal";
 
 function LayoutWrapper({ children }) {
   const location = useLocation();
@@ -35,10 +34,6 @@ function LayoutWrapper({ children }) {
   const [topics, setTopics] = useState([]);
   const [topicData, setTopicData] = useState([]);
   const [levelData, setLevelData] = useState([]);
-  const [showCertificateModal, setShowCertificateModal] = useState(false);
-
-  const openModal = () => setShowCertificateModal(true);
-  const closeModal = () => setShowCertificateModal(false);
 
   useEffect(() => {
     if (location.pathname !== "/login") {
@@ -265,12 +260,10 @@ function LayoutWrapper({ children }) {
                 </div>
                 <div className="home-btn1">
                   {" "}
-                  <button className="btn btn-primary" onClick={openModal}>
-                    Certificate
+                  <button onClick={() => navigate('reports')} className="btn btn-primary">
+                    Reports
                   </button>{" "}
-                  {showCertificateModal && (
-                    <CertificateModal onClose={closeModal} />
-                  )}
+
                 </div>
               </div>
 
@@ -339,12 +332,11 @@ function LayoutWrapper({ children }) {
               {location.pathname !== "/" ? (
                 <div className="row align-middle justify-content-center mt-0 mb-0">
                   <div
-                    className={`${
-                      location.pathname === "/subtopic" ||
+                    className={`${location.pathname === "/subtopic" ||
                       location.pathname === "/topic"
-                        ? "col-lg-6"
-                        : "col-lg-4"
-                    } col-sm-auto align-self-start`}
+                      ? "col-lg-6"
+                      : "col-lg-4"
+                      } col-sm-auto align-self-start`}
                   >
                     <i
                       className="btn btn-primary back_btn fa fa-arrow-left"
@@ -352,10 +344,10 @@ function LayoutWrapper({ children }) {
                         location.pathname === "/subtopic"
                           ? navigate("/level")
                           : location.pathname === "/level"
-                          ? navigate("/topic")
-                          : location.pathname === "/topic"
-                          ? navigate("/")
-                          : navigate(-1);
+                            ? navigate("/topic")
+                            : location.pathname === "/topic"
+                              ? navigate("/")
+                              : navigate(-1);
                       }}
                       aria-hidden="true"
                     ></i>
@@ -388,12 +380,11 @@ function LayoutWrapper({ children }) {
                   ) : null}
 
                   <div
-                    className={`${
-                      location.pathname === "/subtopic" ||
+                    className={`${location.pathname === "/subtopic" ||
                       location.pathname === "/topic"
-                        ? "col-lg-6"
-                        : "col-lg-4"
-                    } col-sm-auto align-self-end text-right`}
+                      ? "col-lg-6"
+                      : "col-lg-4"
+                      } col-sm-auto align-self-end text-right`}
                   >
                     <h3 className="font-2">
                       Total - {subjectData?.topics?.length || 0} Topics

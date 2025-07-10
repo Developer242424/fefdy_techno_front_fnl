@@ -179,7 +179,7 @@ const Certificate = () => {
           </div>
         </div>
         <div className="footer_bottom text-center">
-          <p>Refer: C1 - Chapter, L1 - Level</p>
+          <p className="refer_c">Refer: C1 - Chapter, L1 - Level</p>
         </div>
       </div>
     </div>
