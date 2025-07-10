@@ -127,7 +127,10 @@ const Certificate = () => {
                         <span key={index1}>
                           <span className="chapter_c">C{index1 + 1}</span>{" "}
                           <span className="levels_c">
-                            {value1.comp_levels > 0
+                            {value1.comp_levels === 1
+                              ? `(L1)`
+                              : value1.comp_levels > 0 &&
+                                value1.comp_levels !== 1
                               ? `(L1 - L${value1.comp_levels})`
                               : `(-)`}
                             {index1 < filteredTopics.length - 1 ? ", " : ""}
