@@ -963,7 +963,8 @@ button.btn {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s ease;
   font-size: 35px;
-  font-family: superkinds;
+  font-family: revert;
+  letter-spacing: 2px;
 }
 
 .social-card i {

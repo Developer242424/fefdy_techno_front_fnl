@@ -17,7 +17,8 @@ import science from "../../defaults/img/science.png";
 import subject_img from "../../defaults/img/subject_img.jpg";
 
 function Subject() {
-  const { auth } = useAuth();
+  const { auth, setCommonError, setCommonWarning, setCommonSuccess } =
+    useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [subjects, setSubjects] = useState([]);
@@ -61,6 +62,10 @@ function Subject() {
     localStorage.setItem("subject", JSON.stringify(subject));
     localStorage.setItem("topic", JSON.stringify(topic));
     navigate("/level");
+  };
+
+  const purchaseBtn = () => {
+    setCommonWarning("Kindly purchase the subject");
   };
 
   const settings = {
@@ -118,8 +123,9 @@ function Subject() {
                             class="card subject_card"
                             style={{
                               background: value.background
-                                ? `#e4fff6 url(${publicURL + value.background
-                                }) no-repeat bottom center`
+                                ? `#e4fff6 url(${
+                                    publicURL + value.background
+                                  }) no-repeat bottom center`
                                 : "#e4fff6",
                               backgroundSize: "cover",
                               width: "100%",
@@ -144,21 +150,26 @@ function Subject() {
                                     <a
                                       href="#"
                                       className="social-card purchased"
-                                      onClick={() => nextPage1(value.id, value1.id)}
+                                      onClick={() =>
+                                        nextPage1(value.id, value1.id)
+                                      }
                                       key={index1}
                                     >
                                       <span>
-                                        <i className="fa fa-star"></i> {value1.title}
+                                        <i className="fa fa-star"></i>{" "}
+                                        {value1.title}
                                       </span>
                                     </a>
                                   ) : (
                                     <a
                                       href="#"
+                                      onClick={(e) => purchaseBtn()}
                                       className="social-card locked"
                                       key={index1}
                                     >
                                       <span>
-                                        <i className="fa fa-lock"></i> {value1.title}
+                                        <i className="fa fa-lock"></i>{" "}
+                                        {value1.title}
                                       </span>
                                     </a>
                                   );
@@ -180,6 +191,7 @@ function Subject() {
                                 </button>
                               ) : (
                                 <button
+                                  onClick={(e) => purchaseBtn()}
                                   type="button"
                                   class="btn btn-primary go_button"
                                 >
