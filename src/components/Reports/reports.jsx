@@ -24,20 +24,36 @@ const Reports = () => {
                       <li class="nav-item">
 
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                          aria-selected="true"> <div className="avatar-container_1">
-                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630532123-368341224.jpg" /></div> Science</a>
+                          aria-selected="true"><div className="avatar-container_c">
+                          <img className="tab_avatar" alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630532123-368341224.jpg" /></div>
+                          <div>Science</div></a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                          aria-controls="profile" aria-selected="false"><div className="avatar-container_1">
+                          aria-controls="profile" aria-selected="false"><div className="avatar-container_c">
                             <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630526327-831975994.jpg" /></div> Mathematics</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                          aria-controls="contact" aria-selected="false"><div className="avatar-container_1">
+                          aria-controls="contact" aria-selected="false"><div className="avatar-container_c">
                             <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751631879867-177704686.jpg" /></div> English</a>
                       </li>
+                      <li class="nav-item">
 
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                          aria-selected="true"> <div className="avatar-container_c">
+                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630532123-368341224.jpg" /></div> Science</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                          aria-controls="profile" aria-selected="false"><div className="avatar-container_c">
+                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630526327-831975994.jpg" /></div> Mathematics</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                          aria-controls="contact" aria-selected="false"><div className="avatar-container_c">
+                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751631879867-177704686.jpg" /></div> English</a>
+                      </li>
                     </ul>
 
                   </div> <button onClick={openModal} className="btn btn-primary">

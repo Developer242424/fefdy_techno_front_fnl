@@ -80,7 +80,8 @@ ul {
     padding-bottom: 10px;
 }
 
-.avatar-container_1 img {
+.avatar-container_c img {
+    max-width: none;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -196,4 +197,14 @@ ul {
 
 img {
     max-width: auto !important;
+}
+
+.avatar-container_c img .tab_avatar {
+    max-width: auto !important;
+}
+
+.avatar-container_c {
+    width: 100%;
+    display: block;
+    position: relative;
 }
