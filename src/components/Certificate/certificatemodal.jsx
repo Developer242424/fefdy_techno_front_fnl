@@ -16,7 +16,7 @@ export default function Modal({ onClose }) {
         format: [canvas.width, canvas.height],
       });
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-      pdf.save("modal-content.pdf");
+      pdf.save("Completion Certificate By Fefdy Brain Gym.pdf");
     });
   };
 

@@ -1,684 +1,275 @@
 import React, { useEffect, useState } from "react";
 import "./reports.css";
-import "../../defaults/css/bootstrap.min.css"
+import "../../defaults/css/bootstrap.min.css";
 import CertificateModal from "../Certificate/certificatemodal";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
 
 const Reports = () => {
+  const publicURL = process.env.REACT_APP_PUBLIC_API_URL;
   const [showCertificateModal, setShowCertificateModal] = useState(false);
+  const { logout, auth, isLoading, setCommonError } = useAuth();
+  const [reportsData, setreportsData] = useState(null);
+  const [usedApi, setUseApi] = useState(false);
 
   const openModal = () => setShowCertificateModal(true);
   const closeModal = () => setShowCertificateModal(false);
-  return <div>
-    <div className="section-content">
-      {showCertificateModal && (
-        <CertificateModal onClose={closeModal} />
-      )}
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="tm-sc-nav-tabs-pricing-reports  sub nav-tab-btn-button button-rounded">
-            <div className="gallery col-lg-12">
-              <div className="row gal">
-                <div className="col-lg-12">
-                  <div className="scroll_tab">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <li class="nav-item">
 
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                          aria-selected="true"><div className="avatar-container_c">
-                          <img className="tab_avatar" alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630532123-368341224.jpg" /></div>
-                          <div>Science</div></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                          aria-controls="profile" aria-selected="false"><div className="avatar-container_c">
-                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630526327-831975994.jpg" /></div> Mathematics</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                          aria-controls="contact" aria-selected="false"><div className="avatar-container_c">
-                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751631879867-177704686.jpg" /></div> English</a>
-                      </li>
-                      <li class="nav-item">
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}wholereports`,
+          {
+            token: auth.token,
+          }
+        );
+        // console.log(res);
+        const resData = res.data;
+        if (resData.status === 200) {
+          const reportsList = resData.data[0];
+          // console.log(reportsList);
+          setUseApi(true);
+          setreportsData(reportsList);
+        } else if (resData.status === 401) {
+          console.error("Error fetching data:", resData.message);
+        } else if (resData.status === 400) {
+          console.log("Error fetching data:", resData.message);
+        } else if (resData.status === 500) {
+          console.error("Error fetching data:", resData.message);
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
 
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                          aria-selected="true"> <div className="avatar-container_c">
-                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630532123-368341224.jpg" /></div> Science</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                          aria-controls="profile" aria-selected="false"><div className="avatar-container_c">
-                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751630526327-831975994.jpg" /></div> Mathematics</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                          aria-controls="contact" aria-selected="false"><div className="avatar-container_c">
-                            <img alt="avatar" src="https://feboo.fefdybraingym.com/public/uploads/subjects/1751631879867-177704686.jpg" /></div> English</a>
-                      </li>
-                    </ul>
+    if (usedApi === false) {
+      fetchSubjects();
+    }
+  }, []);
 
-                  </div> <button onClick={openModal} className="btn btn-primary">
-                    View Certificate
-                  </button>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                      <div class="table-container">
-                        <table class="table-fixed">
-                          <thead>
-                            <tr>
-                              <th style={{ width: "700px" }} ><i class="fa fa-check subject_check" aria-hidden="true"></i> Water
-                              </th>
-                              <th style={{ width: "700px" }} >My Body</th>
-                              <th style={{ width: "700px" }} >Air</th>
-                              <th style={{ width: "700px" }} >Plants</th>
-                              <th style={{ width: "700px" }} >Animals</th>
-                              <th style={{ width: "700px" }} >Seasons</th>
-
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><div id="accordion">
-                                <div class="card">
-                                  <div class="card-header complete" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 1</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne"></i>
-                                    </h5>
+  return (
+    <div>
+      <div className="section-content">
+        {showCertificateModal && <CertificateModal onClose={closeModal} />}
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="tm-sc-nav-tabs-pricing-reports  sub nav-tab-btn-button button-rounded">
+              <div className="gallery col-lg-12">
+                <div className="row gal">
+                  <div className="col-lg-12">
+                    <div className="scroll_tab">
+                      <ul className="nav nav-tabs" id="myTab" role="tablist">
+                        {reportsData &&
+                          reportsData.length > 0 &&
+                          reportsData.map((value, index) => {
+                            const sanitizedSubject = value.subject.replace(
+                              /\s+/g,
+                              ""
+                            );
+                            return (
+                              <li class="nav-item">
+                                <a
+                                  class={`nav-link ${
+                                    index === 0 ? `active` : ``
+                                  }`}
+                                  id={`${sanitizedSubject + value.id}-tab`}
+                                  data-toggle="tab"
+                                  href={`#${sanitizedSubject + value.id}`}
+                                  role="tab"
+                                  aria-controls={sanitizedSubject + value.id}
+                                  aria-selected="true"
+                                >
+                                  <div className="avatar-container_c">
+                                    <img
+                                      className="tab_avatar"
+                                      alt="avatar"
+                                      src={publicURL + value.thumbnail}
+                                    />
                                   </div>
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 2</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 3</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div></td>
-                              <td><div id="accordion1">
-                                <div class="card">
-                                  <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 1</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 2</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 3</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div></td>
-                              <td><div id="accordion2">
-                                <div class="card">
-                                  <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 1</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 2</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 3</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div></td>
-                              <td><div id="accordion3">
-                                <div class="card">
-                                  <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 1</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 2</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 3</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div></td>
-                              <td><div id="accordion4">
-                                <div class="card">
-                                  <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 1</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 2</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 3</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div></td>
-                              <td><div id="accordion5">
-                                <div class="card">
-                                  <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 1</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 2</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card">
-                                  <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                    <h5 class="d-flex justify-content-between align-items-center">
-                                      <span>Level 3</span>
-                                      <i class="fas fa-chevron-down rotate-icon" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree"></i>
-                                    </h5>
-                                  </div>
-                                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                    <div class="card-body" style={{ padding: "0px" }}>
-                                      <table className="accord">
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">What is Water?</a></td>
-                                        </tr>
-                                        <tr style={{ background: "#AFEEB8" }}>
-                                          <td><a href="#">Where Do We Find Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Why Do We Need Water?</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Fun with Water!</a></td>
-                                        </tr>
-                                        <tr>
-                                          <td><a href="#">Be Kind to Water!</a></td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div></td>
-
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                                  <div>{value.subject}</div>
+                                </a>
+                              </li>
+                            );
+                          })}
+                      </ul>
+                    </div>{" "}
+                    <button onClick={openModal} className="btn btn-primary">
+                      View Certificate
+                    </button>
+                    <div className="tab-content" id="myTabContent">
+                      {reportsData &&
+                        reportsData.length > 0 &&
+                        reportsData.map((value, index) => {
+                          const TsanitizedSubject = value.subject.replace(
+                            /\s+/g,
+                            ""
+                          );
+                          const topicsArr = value.topics;
+                          return (
+                            <div
+                              class={`tab-pane fade ${
+                                index === 0 ? `show active` : ``
+                              }`}
+                              id={`${TsanitizedSubject + value.id}`}
+                              role="tabpanel"
+                              aria-labelledby={`${
+                                TsanitizedSubject + value.id
+                              }-tab`}
+                            >
+                              <div class="table-container">
+                                <table class="table-fixed">
+                                  <thead>
+                                    <tr>
+                                      {topicsArr &&
+                                        topicsArr.length > 0 &&
+                                        topicsArr.map((Tvalue, Tindex) => {
+                                          return (
+                                            <th style={{ width: "700px" }}>
+                                              {Tvalue.title}
+                                            </th>
+                                          );
+                                        })}
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      {topicsArr &&
+                                        topicsArr.length > 0 &&
+                                        topicsArr.map((Tvalue1, Tindex1) => {
+                                          const levelsArr = Tvalue1.levels;
+                                          levelsArr.sort(
+                                            (a, b) => a.its_level - b.its_level
+                                          );
+                                          return (
+                                            <td>
+                                              <div
+                                                id={`accordion${Tvalue1.id}_${Tindex1}`}
+                                              >
+                                                {levelsArr &&
+                                                  levelsArr.length > 0 &&
+                                                  levelsArr.map(
+                                                    (Lvalue, Lindex) => {
+                                                      const subtopicsArr =
+                                                        Lvalue.subtopics;
+                                                      const allSubtopicsComplete =
+                                                        subtopicsArr?.length > 0
+                                                          ? subtopicsArr.every(
+                                                              (s) =>
+                                                                s.complete_count >=
+                                                                JSON.parse(
+                                                                  s.category
+                                                                ).length
+                                                            )
+                                                          : false;
+                                                      return (
+                                                        <div class="card">
+                                                          <div
+                                                            class={`card-header ${
+                                                              allSubtopicsComplete
+                                                                ? `complete`
+                                                                : ``
+                                                            }`}
+                                                            id={`heading${Lvalue.id}_${Lindex}`}
+                                                            data-toggle="collapse"
+                                                            data-target={`#collapse${Lvalue.id}_${Lindex}`}
+                                                            aria-expanded="false"
+                                                            aria-controls={`collapse${Lvalue.id}_${Lindex}`}
+                                                          >
+                                                            <h5 class="d-flex justify-content-between align-items-center">
+                                                              <span>
+                                                                {Lvalue.title}
+                                                              </span>
+                                                              <i
+                                                                class="fas fa-chevron-down rotate-icon"
+                                                                data-toggle="collapse"
+                                                                data-target={`#collapse${Lvalue.id}_${Lindex}`}
+                                                                aria-expanded="false"
+                                                                aria-controls={`collapse${Lvalue.id}_${Lindex}`}
+                                                              ></i>
+                                                            </h5>
+                                                          </div>
+                                                          <div
+                                                            id={`collapse${Lvalue.id}_${Lindex}`}
+                                                            class="collapse"
+                                                            aria-labelledby={`heading${Lvalue.id}_${Lindex}`}
+                                                            data-parent={`#accordion${Tvalue1.id}_${Tindex1}`}
+                                                          >
+                                                            <div
+                                                              class="card-body"
+                                                              style={{
+                                                                padding: "0px",
+                                                              }}
+                                                            >
+                                                              <table className="accord">
+                                                                {subtopicsArr &&
+                                                                  subtopicsArr.length >
+                                                                    0 &&
+                                                                  subtopicsArr.map(
+                                                                    (
+                                                                      Svalue,
+                                                                      Sindex
+                                                                    ) => {
+                                                                      const subCat =
+                                                                        JSON.parse(
+                                                                          Svalue.category
+                                                                        );
+                                                                      const isComplete =
+                                                                        Svalue.complete_count >=
+                                                                        subCat.length;
+                                                                      return (
+                                                                        <tr
+                                                                          key={
+                                                                            Sindex
+                                                                          }
+                                                                          style={
+                                                                            isComplete
+                                                                              ? {
+                                                                                  background:
+                                                                                    "#AFEEB8",
+                                                                                }
+                                                                              : {}
+                                                                          }
+                                                                        >
+                                                                          <td>
+                                                                            <a href="#">
+                                                                              {
+                                                                                Svalue.title
+                                                                              }
+                                                                            </a>
+                                                                          </td>
+                                                                        </tr>
+                                                                      );
+                                                                    }
+                                                                  )}
+                                                              </table>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      );
+                                                    }
+                                                  )}
+                                              </div>
+                                            </td>
+                                          );
+                                        })}
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                      <h3>Profile Tab</h3>
-                      <p>This is the profile tab content. You can add information about the user here.</p>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                      <h3>Contact Tab</h3>
-                      <p>This is the contact tab content. You can provide contact details here.</p>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab1">
-                      <h3>Contact Tab</h3>
-                      <p>This is the contact tab content. You can provide contact details here.</p>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab2">
-                      <h3>Contact Tab</h3>
-                      <p>This is the contact tab content. You can provide contact details here.</p>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab3">
-                      <h3>Contact Tab</h3>
-                      <p>This is the contact tab content. You can provide contact details here.</p>
-                    </div>
-
                   </div>
                 </div>
-
-              </div></div></div></div></div></div></div>
-    ;
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Reports;
