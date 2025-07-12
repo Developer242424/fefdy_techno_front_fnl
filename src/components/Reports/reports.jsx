@@ -124,8 +124,32 @@ const Reports = () => {
                                       {topicsArr &&
                                         topicsArr.length > 0 &&
                                         topicsArr.map((Tvalue, Tindex) => {
+                                          const levelsArr1 = Tvalue.levels;
+                                          levelsArr1.sort(
+                                            (a, b) => a.its_level - b.its_level
+                                          );
+                                          const allLevelsComplete =
+                                            levelsArr1.length > 0
+                                              ? levelsArr1.every(
+                                                  (level) =>
+                                                    level.subtopics?.length >
+                                                      0 &&
+                                                    level.subtopics.every(
+                                                      (sub) =>
+                                                        sub.complete_count >=
+                                                        JSON.parse(sub.category)
+                                                          .length
+                                                    )
+                                                )
+                                              : false;
                                           return (
                                             <th style={{ width: "700px" }}>
+                                              {allLevelsComplete && (
+                                                <i
+                                                  class="fa fa-check subject_check"
+                                                  aria-hidden="true"
+                                                ></i>
+                                              )}{" "}
                                               {Tvalue.title}
                                             </th>
                                           );
