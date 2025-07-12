@@ -60,7 +60,9 @@ const LayeredSVG = ({ src }) => {
       .then((res) => res.text())
       .then((data) => {
         startTransition(() => {
-          setSvgContent(data);
+          // console.log(data);
+          const cleanedXml = data.replace(/<i:[^>]+>[\s\S]*?<\/i:[^>]+>/g, "");
+          setSvgContent(cleanedXml);
           setIsLoading(false);
         });
       })
