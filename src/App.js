@@ -354,15 +354,19 @@ function LayoutWrapper({ children }) {
                       }}
                       aria-hidden="true"
                     ></i>
-                    <h3 className="font-1">
-                      {subjectData?.subject}
-                      {(location.pathname === "/level" ||
-                        location.pathname === "/subtopic") &&
-                        ` - ${topicData?.title}`}
-                      {location.pathname === "/subtopic" &&
-                        ` - ${levelData?.title}`}
-                      {/* - Level 1 to {topics[0]?.levels || 0}{" "} */}
-                    </h3>
+                    {location.pathname !== "/reports" &&
+                      location.pathname !== "/myprofile" &&
+                      location.pathname !== "/myprofile#" && (
+                        <h3 className="font-1">
+                          {subjectData?.subject}
+                          {(location.pathname === "/level" ||
+                            location.pathname === "/subtopic") &&
+                            ` - ${topicData?.title}`}
+                          {location.pathname === "/subtopic" &&
+                            ` - ${levelData?.title}`}
+                          {/* - Level 1 to {topics[0]?.levels || 0}{" "} */}
+                        </h3>
+                      )}
                   </div>
 
                   {location.pathname === "/level" ? (
@@ -391,7 +395,11 @@ function LayoutWrapper({ children }) {
                     } col-sm-auto align-self-end text-right`}
                   >
                     <h3 className="font-2">
-                      Total - {subjectData?.topics?.length || 0} Topics
+                      {location.pathname !== "/reports" &&
+                        location.pathname !== "/myprofile" &&
+                        location.pathname !== "/myprofile#" && (
+                          <>Total - {subjectData?.topics?.length || 0} Topics</>
+                        )}
                     </h3>
                   </div>
                 </div>
