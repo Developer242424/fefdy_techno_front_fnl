@@ -58,45 +58,49 @@ const Reports = () => {
               <div className="gallery col-lg-12">
                 <div className="row gal">
                   <div className="col-lg-12">
-                    <div className="scroll_tab">
-                      <ul className="nav nav-tabs" id="myTab" role="tablist">
-                        {reportsData &&
-                          reportsData.length > 0 &&
-                          reportsData.map((value, index) => {
-                            const sanitizedSubject = value.subject.replace(
-                              /\s+/g,
-                              ""
-                            );
-                            return (
-                              <li class="nav-item">
-                                <a
-                                  class={`nav-link ${
-                                    index === 0 ? `active` : ``
-                                  }`}
-                                  id={`${sanitizedSubject + value.id}-tab`}
-                                  data-toggle="tab"
-                                  href={`#${sanitizedSubject + value.id}`}
-                                  role="tab"
-                                  aria-controls={sanitizedSubject + value.id}
-                                  aria-selected="true"
-                                >
-                                  <div className="avatar-container_c">
-                                    <img
-                                      className="tab_avatar"
-                                      alt="avatar"
-                                      src={publicURL + value.thumbnail}
-                                    />
-                                  </div>
-                                  <div>{value.subject}</div>
-                                </a>
-                              </li>
-                            );
-                          })}
-                      </ul>
-                    </div>{" "}
-                    <button onClick={openModal} className="btn btn-primary">
-                      View Certificate
-                    </button>
+                    <div className="row d-flex">
+                      <div className="col-lg-8 scroll_tab">
+                        <ul className="nav nav-tabs" id="myTab" role="tablist">
+                          {reportsData &&
+                            reportsData.length > 0 &&
+                            reportsData.map((value, index) => {
+                              const sanitizedSubject = value.subject.replace(
+                                /\s+/g,
+                                ""
+                              );
+                              return (
+                                <li class="nav-item">
+                                  <a
+                                    class={`nav-link ${index === 0 ? `active` : ``
+                                      }`}
+                                    id={`${sanitizedSubject + value.id}-tab`}
+                                    data-toggle="tab"
+                                    href={`#${sanitizedSubject + value.id}`}
+                                    role="tab"
+                                    aria-controls={sanitizedSubject + value.id}
+                                    aria-selected="true"
+                                  >
+                                    <div className="avatar-container_c">
+                                      <img
+                                        className="tab_avatar"
+                                        alt="avatar"
+                                        src={publicURL + value.thumbnail}
+                                      />
+                                    </div>
+                                    <div>{value.subject}</div>
+                                  </a>
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      </div>{" "}
+                      <div className="col-lg-4 text-right">
+                        <button onClick={openModal} className="btn btn-primary">
+                          View Certificate
+                        </button>
+                      </div>
+                    </div>
+
                     <div className="tab-content" id="myTabContent">
                       {reportsData &&
                         reportsData.length > 0 &&
@@ -108,14 +112,12 @@ const Reports = () => {
                           const topicsArr = value.topics;
                           return (
                             <div
-                              class={`tab-pane fade ${
-                                index === 0 ? `show active` : ``
-                              }`}
+                              class={`tab-pane fade ${index === 0 ? `show active` : ``
+                                }`}
                               id={`${TsanitizedSubject + value.id}`}
                               role="tabpanel"
-                              aria-labelledby={`${
-                                TsanitizedSubject + value.id
-                              }-tab`}
+                              aria-labelledby={`${TsanitizedSubject + value.id
+                                }-tab`}
                             >
                               <div class="table-container">
                                 <table class="table-fixed">
@@ -131,16 +133,16 @@ const Reports = () => {
                                           const allLevelsComplete =
                                             levelsArr1.length > 0
                                               ? levelsArr1.every(
-                                                  (level) =>
-                                                    level.subtopics?.length >
-                                                      0 &&
-                                                    level.subtopics.every(
-                                                      (sub) =>
-                                                        sub.complete_count >=
-                                                        JSON.parse(sub.category)
-                                                          .length
-                                                    )
-                                                )
+                                                (level) =>
+                                                  level.subtopics?.length >
+                                                  0 &&
+                                                  level.subtopics.every(
+                                                    (sub) =>
+                                                      sub.complete_count >=
+                                                      JSON.parse(sub.category)
+                                                        .length
+                                                  )
+                                              )
                                               : false;
                                           return (
                                             <th style={{ width: "700px" }}>
@@ -179,21 +181,20 @@ const Reports = () => {
                                                       const allSubtopicsComplete =
                                                         subtopicsArr?.length > 0
                                                           ? subtopicsArr.every(
-                                                              (s) =>
-                                                                s.complete_count >=
-                                                                JSON.parse(
-                                                                  s.category
-                                                                ).length
-                                                            )
+                                                            (s) =>
+                                                              s.complete_count >=
+                                                              JSON.parse(
+                                                                s.category
+                                                              ).length
+                                                          )
                                                           : false;
                                                       return (
                                                         <div class="card">
                                                           <div
-                                                            class={`card-header ${
-                                                              allSubtopicsComplete
-                                                                ? `complete`
-                                                                : ``
-                                                            }`}
+                                                            class={`card-header ${allSubtopicsComplete
+                                                              ? `complete`
+                                                              : ``
+                                                              }`}
                                                             id={`heading${Lvalue.id}_${Lindex}`}
                                                             data-toggle="collapse"
                                                             data-target={`#collapse${Lvalue.id}_${Lindex}`}
@@ -228,7 +229,7 @@ const Reports = () => {
                                                               <table className="accord">
                                                                 {subtopicsArr &&
                                                                   subtopicsArr.length >
-                                                                    0 &&
+                                                                  0 &&
                                                                   subtopicsArr.map(
                                                                     (
                                                                       Svalue,
@@ -249,9 +250,9 @@ const Reports = () => {
                                                                           style={
                                                                             isComplete
                                                                               ? {
-                                                                                  background:
-                                                                                    "#AFEEB8",
-                                                                                }
+                                                                                background:
+                                                                                  "#AFEEB8",
+                                                                              }
                                                                               : {}
                                                                           }
                                                                         >

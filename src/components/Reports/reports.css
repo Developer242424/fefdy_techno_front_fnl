@@ -142,7 +142,6 @@ ul {
 }
 
 .scroll_tab {
-    width: 800px;
     overflow-x: auto;
     white-space: nowrap;
     display: inline-flex;
