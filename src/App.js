@@ -336,9 +336,9 @@ function LayoutWrapper({ children }) {
                   <div
                     className={`${location.pathname === "/subtopic" ||
                       location.pathname === "/topic"
-                      ? "col-lg-6"
-                      : "col-lg-4"
-                      } col-sm-auto align-self-start`}
+                        ? "col-lg-6"
+                        : "col-lg-4"
+                    } col-sm-auto align-self-start`}
                   >
                     <i
                       className="btn btn-primary back_btn fa fa-arrow-left"
