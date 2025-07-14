@@ -338,7 +338,7 @@ function LayoutWrapper({ children }) {
                       location.pathname === "/subtopic" ||
                       location.pathname === "/topic"
                         ? "col-lg-6"
-                        : "col-lg-4"
+                        : (location.pathname === "/reports" || location.pathname === "/myprofile" ? "col-lg-8" : "col-lg-4")
                     } col-sm-auto align-self-start`}
                   >
                     <i
