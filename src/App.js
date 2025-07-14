@@ -373,7 +373,7 @@ function LayoutWrapper({ children }) {
                   </div>
 
                   {location.pathname === "/level" ? (
-                    <div className="col-lg-8 col-sm-auto align-self-center text-center">
+                    <div className="col-lg-4 col-sm-auto align-self-center text-center">
                       <div className="levels-comp">
                         <span className="comp-1">
                           <img src={CompImg} alt="Dictionary" />
