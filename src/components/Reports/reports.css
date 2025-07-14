@@ -1,4 +1,4 @@
-.tm-sc-nav-tabs-pricing-reports {
+.tm-sc-nav-tabs_1-pricing-reports {
     background-color: #ffd7d7;
     background-position: center;
     background-size: cover;
@@ -155,13 +155,13 @@ ul {
     font-size: 15px;
 }
 
-.scroll_tab .nav-tabs {
+.scroll_tab .nav-tabs_1 {
     flex-wrap: initial;
     /* prevent wrapping */
 }
 
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
+.nav-tabs_1 .nav-item.show .nav-link,
+.nav-tabs_1 .nav-link.active {
     color: #272727;
     background-color: #E3FFD7;
     border-radius: 20px;
@@ -170,8 +170,8 @@ ul {
     padding: 10px 10px;
 }
 
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
+.nav-tabs_1 .nav-link:focus,
+.nav-tabs_1 .nav-link:hover {
     color: #272727;
     background-color: #E3FFD7;
     border-radius: 20px;
@@ -180,7 +180,7 @@ ul {
     padding: 10px 10px;
 }
 
-.nav-tabs .nav-link {
+.nav-tabs_1 .nav-link {
     margin-bottom: -1px;
     border: 1px solid #E3FFD7;
     background-color: rgba(227, 255, 215, 0.2);

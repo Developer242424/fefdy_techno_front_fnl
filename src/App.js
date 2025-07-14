@@ -334,12 +334,11 @@ function LayoutWrapper({ children }) {
               {location.pathname !== "/" ? (
                 <div className="row align-middle justify-content-center mt-0 mb-0">
                   <div
-                    className={`${
-                      location.pathname === "/subtopic" ||
+                    className={`${location.pathname === "/subtopic" ||
                       location.pathname === "/topic"
-                        ? "col-lg-6"
-                        : "col-lg-4"
-                    } col-sm-auto align-self-start`}
+                      ? "col-lg-6"
+                      : "col-lg-4"
+                      } col-sm-auto align-self-start`}
                   >
                     <i
                       className="btn btn-primary back_btn fa fa-arrow-left"
@@ -347,10 +346,10 @@ function LayoutWrapper({ children }) {
                         location.pathname === "/subtopic"
                           ? navigate("/level")
                           : location.pathname === "/level"
-                          ? navigate("/topic")
-                          : location.pathname === "/topic"
-                          ? navigate("/")
-                          : navigate(-1);
+                            ? navigate("/topic")
+                            : location.pathname === "/topic"
+                              ? navigate("/")
+                              : navigate(-1);
                       }}
                       aria-hidden="true"
                     ></i>
@@ -370,7 +369,7 @@ function LayoutWrapper({ children }) {
                   </div>
 
                   {location.pathname === "/level" ? (
-                    <div className="col-lg-4 col-sm-auto align-self-center text-center">
+                    <div className="col-lg-8 col-sm-auto align-self-center text-center">
                       <div className="levels-comp">
                         <span className="comp-1">
                           <img src={CompImg} alt="Dictionary" />
@@ -387,12 +386,11 @@ function LayoutWrapper({ children }) {
                   ) : null}
 
                   <div
-                    className={`${
-                      location.pathname === "/subtopic" ||
+                    className={`${location.pathname === "/subtopic" ||
                       location.pathname === "/topic"
-                        ? "col-lg-6"
-                        : "col-lg-4"
-                    } col-sm-auto align-self-end text-right`}
+                      ? "col-lg-6"
+                      : "col-lg-4"
+                      } col-sm-auto align-self-end text-right`}
                   >
                     <h3 className="font-2">
                       {location.pathname !== "/reports" &&

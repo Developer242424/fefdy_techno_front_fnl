@@ -54,13 +54,13 @@ const Reports = () => {
         {showCertificateModal && <CertificateModal onClose={closeModal} />}
         <div className="row">
           <div className="col-lg-12">
-            <div className="tm-sc-nav-tabs-pricing-reports  sub nav-tab-btn-button button-rounded">
+            <div className="tm-sc-nav-tabs_1-pricing-reports  sub nav-tab-btn-button button-rounded">
               <div className="gallery col-lg-12">
                 <div className="row gal">
                   <div className="col-lg-12">
-                    <div className="row d-flex">
+                    <div className="row d-flex align-items-baseline">
                       <div className="col-lg-8 scroll_tab">
-                        <ul className="nav nav-tabs" id="myTab" role="tablist">
+                        <ul className="nav nav-tabs_1" id="myTab" role="tablist">
                           {reportsData &&
                             reportsData.length > 0 &&
                             reportsData.map((value, index) => {
