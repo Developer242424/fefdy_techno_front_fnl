@@ -119,12 +119,6 @@ li.sub-li-li {
   line-height: 1.8;
 }
 
-i.fa.fa-star {
-  /* color: var(--bs-yellow); */
-  border-radius: 12px;
-  padding-right: 11px;
-}
-
 ul.subject-li {
   padding-top: 3%;
 }
