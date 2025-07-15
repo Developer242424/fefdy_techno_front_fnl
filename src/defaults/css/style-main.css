@@ -13402,7 +13402,7 @@ blockquote.blockquote-style8 footer cite {
   border: none;
   outline: none;
   display: inline-block;
-  /* height: 50px; */
+  height: 60px;
   width: 80px;
   cursor: pointer;
   border-radius: 20px;
