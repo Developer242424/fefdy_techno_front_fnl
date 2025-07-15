@@ -16,7 +16,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import LayeredSVG from "./LayeredSVG";
-
+import StageModal from "./stagemodal";
 function Subtopic() {
   const publicURL = process.env.REACT_APP_PUBLIC_API_URL;
   const videoURL = "https://fefdygames.com/erpvideos/";
@@ -37,6 +37,10 @@ function Subtopic() {
   const [lastVisibleTime, setLastVisibleTime] = useState(0);
 
   const [pdfBlobUrl, setPdfBlobUrl] = useState(null);
+
+  const [ShowStageModal, setShowStageModal] = useState(false);
+  const openStageModal = () => setShowStageModal(true);
+  const closeStageModal = () => setShowStageModal(false);
 
   useEffect(() => {
     if (!auth.token) navigate("/login");
@@ -278,9 +282,8 @@ function Subtopic() {
                     className="tm-sc-funfact funfact funfact-lefticon mb-20 text-md-center text-lg-start"
                   >
                     <div
-                      className={`funfact-icon float-left mr-40 bg-theme-colored1${
-                        topic === value.id ? " active" : ""
-                      }`}
+                      className={`funfact-icon float-left mr-40 bg-theme-colored1${topic === value.id ? " active" : ""
+                        }`}
                       style={{ cursor: "pointer" }}
                       onClick={() => levelPage(value.id)}
                     >
@@ -333,9 +336,8 @@ function Subtopic() {
                     subtopics.map((value, index) => (
                       <li
                         key={value.id}
-                        className={`step ${
-                          activeLeftTab?.id === value.id ? "active_step" : ""
-                        }`}
+                        className={`step ${activeLeftTab?.id === value.id ? "active_step" : ""
+                          }`}
                       >
                         <a
                           href="#"
@@ -345,12 +347,11 @@ function Subtopic() {
                           }}
                         >
                           <span
-                            className={`circle2 ${
-                              activeLeftTab?.id === value.id ||
+                            className={`circle2 ${activeLeftTab?.id === value.id ||
                               value.is_completed === 1
-                                ? "active"
-                                : ""
-                            }`}
+                              ? "active"
+                              : ""
+                              }`}
                           >
                             {index + 1}
                           </span>
@@ -380,16 +381,14 @@ function Subtopic() {
                 return (
                   <li
                     key={value.id}
-                    className={`nav-item ${
-                      activeTabItem?.id === value.id ? "active" : ""
-                    }`}
+                    className={`nav-item ${activeTabItem?.id === value.id ? "active" : ""
+                      }`}
                     onClick={() => setActiveTabItem(value)}
                   >
                     <a
                       href="#"
-                      className={`nav-link ${
-                        activeTabItem?.id === value.id ? "active" : ""
-                      }`}
+                      className={`nav-link ${activeTabItem?.id === value.id ? "active" : ""
+                        }`}
                       onClick={(e) => e.preventDefault()}
                     >
                       <span className="title">
@@ -421,6 +420,17 @@ function Subtopic() {
                 >
                   <span className="title">
                     <img style={{ height: "100%" }} src={activity_match} />
+                  </span>
+                </a>
+              </li>
+              <li className={`nav-item`}>
+                <a
+                  href="#"
+                  className={`nav-link `}
+                  onClick={(e) => openStageModal()}
+                >
+                  <span className="title">
+                    Stg
                   </span>
                 </a>
               </li>
@@ -470,9 +480,9 @@ function Subtopic() {
                         {activeTabItem?.cat_data?.source?.includes(
                           "youtube.com"
                         ) ||
-                        activeTabItem?.cat_data?.source?.includes(
-                          "youtu.be"
-                        ) ? (
+                          activeTabItem?.cat_data?.source?.includes(
+                            "youtu.be"
+                          ) ? (
                           <div
                             style={{ position: "relative", paddingTop: "42vh" }}
                           >
@@ -586,6 +596,7 @@ function Subtopic() {
                   </div>
                 </div>
               )}
+              {ShowStageModal && <StageModal StageonClose={closeStageModal} />}
             </div>
           </div>
         </div>

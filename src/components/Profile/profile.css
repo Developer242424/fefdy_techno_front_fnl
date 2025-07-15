@@ -54,4 +54,5 @@
 
 .btn {
   background: #e987c2;
+  z-index: 0;
 }

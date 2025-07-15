@@ -17727,7 +17727,7 @@ body
 
 .tm-sc-jus-feature-box {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 .our-faq {
@@ -25881,7 +25881,7 @@ h2.text-theme-colore-1 {
 }
 
 a.mini-cart-icon {
-  z-index: 99 !important;
+  z-index: 0 !important;
 }
 
 .home-btn a {

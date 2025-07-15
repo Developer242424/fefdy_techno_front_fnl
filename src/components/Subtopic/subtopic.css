@@ -653,7 +653,7 @@ h4 {
     right: 30px;
     top: 0px;
     width: 100%;
-    z-index: 1;
+    z-index: 0;
     border: 10px solid #e4fff6;
     border-radius: 50px;
     height: 65vh;
@@ -782,4 +782,58 @@ h4 {
 button.px-4.py-2.bg-purple-700.rounded.hover\\:bg-purple-800 {
   background: #ddc2ff;
   padding: 1px 0px 0px 1px !important;
+}
+
+.stage_heading {
+  color: #fff;
+  margin: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 600;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 2s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.clap_img{
+  height: 200px !important;
+  width: 200px !important;
+}
+
+.stage_score {
+  color: transparent; /* Make the text transparent so the background shows through */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 600;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  -webkit-background-clip: text; /* For Safari */
+  background-clip: text;
+  animation: gradient 2s ease infinite;
+  display: inline; /* Ensure it only affects the text */
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
