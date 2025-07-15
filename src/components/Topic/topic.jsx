@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import StarGIF from "../../defaults/img/star.gif";
+import TrophyGIF from "../../defaults/img/Trophy.gif";
 
 function Topic() {
   const [topics, setTopics] = useState([]);
@@ -103,7 +105,7 @@ function Topic() {
       <div className="section-content">
         <div className="row">
           <div className="col-lg-12">
-            <div className="tm-sc-nav-tabs-pricing-topic  sub nav-tab-btn-button button-rounded">
+            <div className="tm-sc-nav-tabs-pricing-topic sub nav-tab-btn-button button-rounded">
               <div className="gallery col-lg-12">
                 <div className="row gal">
                   {topics.length > 0 ? (
@@ -120,13 +122,31 @@ function Topic() {
                             className={`progress-badge sub-${subClassNumber}`}
                           >
                             {value.comp_levels}/{value.levels}
+                            {value.comp_levels === value.levels && (
+                              <img src={TrophyGIF} className="trophy" />
+                            )}
                           </div>
-                          <img
-                            className="sub-img"
-                            src={publicURL + value.thumbnail}
-                            alt={value.title}
-                          />
+                          <div>
+                            <img
+                              className="sub-img"
+                              src={publicURL + value.thumbnail}
+                              alt={value.title}
+                            />
+                          </div>
+                          <div></div>
                           <h3 className="sub-sub">{value.title}</h3>
+                          <div style={{ minHeight: "32px" }}>
+                            {value.comp_levels > 0 &&
+                              value.comp_levels < value.levels &&
+                              Array.from({ length: value.comp_levels }).map(
+                                (_, idx) => (
+                                  <img
+                                    src={StarGIF}
+                                    style={{ width: "12%", marginTop: "-15px" }}
+                                  />
+                                )
+                              )}
+                          </div>
                         </div>
                       );
                     })
