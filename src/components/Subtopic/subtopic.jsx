@@ -285,7 +285,7 @@ function Subtopic() {
 
     useEffect(() => {
         if (stageModalShowedIds.length > 0) {
-            console.log("Stored ids", stageModalShowedIds.join(","));
+            // console.log("Stored ids", stageModalShowedIds.join(","));
         }
     }, [stageModalShowedIds]);
 
