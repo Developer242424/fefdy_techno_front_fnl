@@ -262,6 +262,33 @@ function Subtopic() {
     // console.log("sub len: "+subtopics.length);
     // console.log("comp sub len: "+completed_subs.length);
 
+    // console.log(activeLeftTab)
+
+    const [stageModalShowedIds, setStageModalShowedIds] = useState(() => {
+        // On first load, pull from localStorage if it exists
+        const stored = localStorage.getItem('stageModalShowedIds');
+        return stored ? JSON.parse(stored) : [];
+    });
+
+    useEffect(() => {
+        if (activeLeftTab?.is_completed === 1) {
+            setStageModalShowedIds(prev => {
+                const updated = prev.includes(activeLeftTab?.id) ? prev : [...prev, activeLeftTab?.id];
+                localStorage.setItem('stageModalShowedIds', JSON.stringify(updated));
+                return updated;
+            });
+            if (!stageModalShowedIds.includes(activeLeftTab?.id)) {
+                openStageModal()
+            }
+        }
+    }, [activeLeftTab]);
+
+    useEffect(() => {
+        if (stageModalShowedIds.length > 0) {
+            console.log("Stored ids", stageModalShowedIds.join(","));
+        }
+    }, [stageModalShowedIds]);
+
     return (
         <div className="section-content">
             <div className="row">
