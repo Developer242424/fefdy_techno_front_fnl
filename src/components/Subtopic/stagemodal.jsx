@@ -5,7 +5,7 @@ import particlesGif from "../../defaults/img/particles.gif";
 // import { backgroundImage } from "html2canvas/dist/types/css/property-descriptors/background-image";
 
 
-const StageModal = ({ StageonClose }) => {
+const StageModal = ({ StageonClose, ActiveLeftTab, TopicData }) => {
     return (
         <div style={styles.backdrop}>
             <div style={styles.modal}>
@@ -13,7 +13,7 @@ const StageModal = ({ StageonClose }) => {
                     <h2 className="stage_heading">Congratulations</h2>
                     <img className="clap_img" src={clapImg} alt="" />
                     <h4>Your are complete the</h4>
-                    <h3>Water - Introduction of water</h3>
+                    <h3>{TopicData?.title} - {ActiveLeftTab?.title}</h3>
                     <p className="mb-0">Your Score for this stage</p>
                     <h1 className="stage_score">8/10</h1>
                 </div>

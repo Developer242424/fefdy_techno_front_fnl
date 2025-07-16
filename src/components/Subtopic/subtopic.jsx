@@ -24,6 +24,7 @@ function Subtopic() {
     const subject = JSON.parse(localStorage.getItem("subject"));
     const topic = JSON.parse(localStorage.getItem("topic"));
     const level = JSON.parse(localStorage.getItem("level"));
+    const [topicData, setTopicData] = useState([]);
 
     const [videoDuration, setVideoDuration] = useState(0);
     const [playedSeconds, setPlayedSeconds] = useState(0);
@@ -48,6 +49,16 @@ function Subtopic() {
                 });
                 if (res.data.status === 200) {
                     setTopics(res.data.data);
+                    const topicsList = res.data.data;
+                    const matchedTopic = topicsList.find(
+                        (item) => item.id === parseInt(topic)
+                    );
+                    if (matchedTopic) {
+                        setTopicData(matchedTopic);
+                        // console.log("Matched Subject:", matchedTopic);
+                    } else {
+                        console.warn("No matching subject found for ID:", topic);
+                    }
                 } else {
                     console.error("Error fetching data:", res.data.message);
                     navigate("/login");
@@ -278,7 +289,7 @@ function Subtopic() {
                 return updated;
             });
             if (!stageModalShowedIds.includes(activeLeftTab?.id)) {
-                openStageModal()
+            openStageModal()
             }
         }
     }, [activeLeftTab]);
@@ -606,7 +617,7 @@ function Subtopic() {
                                     </div>
                                 </div>
                             )}
-                            {ShowStageModal && <StageModal StageonClose={closeStageModal} />}
+                            {ShowStageModal && <StageModal StageonClose={closeStageModal} ActiveLeftTab={activeLeftTab} TopicData={topicData} />}
                         </div>
                     </div>
                 </div>
