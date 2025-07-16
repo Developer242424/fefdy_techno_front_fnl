@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import LayeredSVG from "./LayeredSVG";
 import StageModal from "./stagemodal";
+import WholeStageModal from "./wholestagemodal";
 function Subtopic() {
     const publicURL = process.env.REACT_APP_PUBLIC_API_URL;
     const videoURL = "https://fefdygames.com/erpvideos/";
@@ -36,6 +37,10 @@ function Subtopic() {
     const [ShowStageModal, setShowStageModal] = useState(false);
     const openStageModal = () => setShowStageModal(true);
     const closeStageModal = () => setShowStageModal(false);
+
+    const [WholeShowStageModal, setWholeShowStageModal] = useState(false);
+    const openWholeStageModal = () => setWholeShowStageModal(true);
+    const closeWholeStageModal = () => setWholeShowStageModal(false);
 
     useEffect(() => {
         if (!auth.token) navigate("/login");
@@ -276,10 +281,15 @@ function Subtopic() {
     // console.log(activeLeftTab)
 
     const [stageModalShowedIds, setStageModalShowedIds] = useState(() => {
-        // On first load, pull from localStorage if it exists
         const stored = localStorage.getItem('stageModalShowedIds');
         return stored ? JSON.parse(stored) : [];
     });
+
+    const [stageModalShowedLevelIds, setstageModalShowedLevelIds] = useState(() => {
+        const storedLevel = localStorage.getItem('stageModalShowedLevelIds');
+        return storedLevel ? JSON.parse(storedLevel) : [];
+    });
+    const [percentage, setPercentage] = useState(0);
 
     useEffect(() => {
         if (activeLeftTab?.is_completed === 1) {
@@ -289,9 +299,37 @@ function Subtopic() {
                 return updated;
             });
             if (!stageModalShowedIds.includes(activeLeftTab?.id)) {
-            openStageModal()
+                openStageModal()
             }
         }
+
+        let ttl_marks = 0;
+        let got_marks = 0;
+
+        if (subtopics.length > 0) {
+            const is_comp_subtopics = subtopics.filter((item) => Number(item?.is_completed) === 1);
+
+            if (subtopics.length === is_comp_subtopics.length) {
+                ttl_marks = subtopics.reduce((sum, d) => sum + (d.ttl_mark || 0), 0);
+                got_marks = subtopics.reduce((sum, d) => sum + (d.got_mark || 0), 0);
+
+                const percentageCalc = Math.round((got_marks / ttl_marks) * 100);
+                setPercentage(percentageCalc);
+
+                // console.log("level", level);
+                setstageModalShowedLevelIds(prev => {
+                    const updatedLevelId = prev.includes(level) ? prev : [...prev, level];
+                    localStorage.setItem('stageModalShowedLevelIds', JSON.stringify(updatedLevelId));
+                    return updatedLevelId;
+                });
+                if (!stageModalShowedLevelIds.includes(level)) {
+                    openWholeStageModal();
+                }
+            }
+        }
+
+        // console.log("stageModalShowedLevelIds (immediate):", stageModalShowedLevelIds);
+
     }, [activeLeftTab]);
 
     useEffect(() => {
@@ -325,7 +363,7 @@ function Subtopic() {
                                 ))
                             ) : (
                                 /* <p>Data not found</p>*/
-                                <div class="loader"></div>
+                                <div className="loader"></div>
                             )}
                         </div>
                     </div>
@@ -618,6 +656,7 @@ function Subtopic() {
                                 </div>
                             )}
                             {ShowStageModal && <StageModal StageonClose={closeStageModal} ActiveLeftTab={activeLeftTab} TopicData={topicData} />}
+                            {WholeShowStageModal && <WholeStageModal WholeStageonClose={closeWholeStageModal} Percentage={percentage} TopicData={topicData} />}
                         </div>
                     </div>
                 </div>
