@@ -15,7 +15,7 @@ const StageModal = ({ StageonClose, ActiveLeftTab, TopicData }) => {
                     <h4>Your are complete the</h4>
                     <h3>{TopicData?.title} - {ActiveLeftTab?.title}</h3>
                     <p className="mb-0">Your Score for this stage</p>
-                    <h1 className="stage_score">8/10</h1>
+                    <h1 className="stage_score">{ActiveLeftTab?.got_mark}/{ActiveLeftTab?.ttl_mark}</h1>
                 </div>
 
                 <audio src={StageModalMP3} autoPlay />
