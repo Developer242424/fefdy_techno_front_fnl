@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./subtopic.css";
 import giphy from "../../defaults/img/giphy.gif";
-import ico1 from "../../defaults/img/ico-1.png";
-import ico2 from "../../defaults/img/ico-2.png";
-import ico3 from "../../defaults/img/ico-3.png";
-import ico4 from "../../defaults/img/ico-4.png";
-import ico5 from "../../defaults/img/ico-5.png";
-import ico6 from "../../defaults/img/ico-6.png";
 import activity from "../../defaults/img/activity.gif";
 import activity_match from "../../defaults/img/activity_match.gif";
 
