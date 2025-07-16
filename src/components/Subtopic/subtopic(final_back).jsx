@@ -1,19 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./subtopic.css";
 import giphy from "../../defaults/img/giphy.gif";
-import ico1 from "../../defaults/img/ico-1.png";
-import ico2 from "../../defaults/img/ico-2.png";
-import ico3 from "../../defaults/img/ico-3.png";
-import ico4 from "../../defaults/img/ico-4.png";
-import ico5 from "../../defaults/img/ico-5.png";
-import ico6 from "../../defaults/img/ico-6.png";
+import activity from "../../defaults/img/activity.gif";
+import activity_match from "../../defaults/img/activity_match.gif";
 
 import titleicon from "../../defaults/img/title-icon.png";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
-
+import LayeredSVG from "./LayeredSVG";
+import StageModal from "./stagemodal";
 function Subtopic() {
   const publicURL = process.env.REACT_APP_PUBLIC_API_URL;
   const videoURL = "https://fefdygames.com/erpvideos/";
@@ -34,6 +31,10 @@ function Subtopic() {
   const [lastVisibleTime, setLastVisibleTime] = useState(0);
 
   const [pdfBlobUrl, setPdfBlobUrl] = useState(null);
+
+  const [ShowStageModal, setShowStageModal] = useState(false);
+  const openStageModal = () => setShowStageModal(true);
+  const closeStageModal = () => setShowStageModal(false);
 
   useEffect(() => {
     if (!auth.token) navigate("/login");
@@ -275,9 +276,8 @@ function Subtopic() {
                     className="tm-sc-funfact funfact funfact-lefticon mb-20 text-md-center text-lg-start"
                   >
                     <div
-                      className={`funfact-icon float-left mr-40 bg-theme-colored1${
-                        topic === value.id ? " active" : ""
-                      }`}
+                      className={`funfact-icon float-left mr-40 bg-theme-colored1${topic === value.id ? " active" : ""
+                        }`}
                       style={{ cursor: "pointer" }}
                       onClick={() => levelPage(value.id)}
                     >
@@ -286,7 +286,8 @@ function Subtopic() {
                   </div>
                 ))
               ) : (
-                <p>Data not found</p>
+                /* <p>Data not found</p>*/
+                <div class="loader"></div>
               )}
             </div>
           </div>
@@ -329,9 +330,8 @@ function Subtopic() {
                     subtopics.map((value, index) => (
                       <li
                         key={value.id}
-                        className={`step ${
-                          activeLeftTab?.id === value.id ? "active_step" : ""
-                        }`}
+                        className={`step ${activeLeftTab?.id === value.id ? "active_step" : ""
+                          }`}
                       >
                         <a
                           href="#"
@@ -341,12 +341,11 @@ function Subtopic() {
                           }}
                         >
                           <span
-                            className={`circle2 ${
-                              activeLeftTab?.id === value.id ||
+                            className={`circle2 ${activeLeftTab?.id === value.id ||
                               value.is_completed === 1
-                                ? "active"
-                                : ""
-                            }`}
+                              ? "active"
+                              : ""
+                              }`}
                           >
                             {index + 1}
                           </span>
@@ -376,23 +375,59 @@ function Subtopic() {
                 return (
                   <li
                     key={value.id}
-                    className={`nav-item ${
-                      activeTabItem?.id === value.id ? "active" : ""
-                    }`}
+                    className={`nav-item ${activeTabItem?.id === value.id ? "active" : ""
+                      }`}
                     onClick={() => setActiveTabItem(value)}
                   >
                     <a
                       href="#"
-                      className={`nav-link ${
-                        activeTabItem?.id === value.id ? "active" : ""
-                      }`}
+                      className={`nav-link ${activeTabItem?.id === value.id ? "active" : ""
+                        }`}
                       onClick={(e) => e.preventDefault()}
                     >
-                      <span className="title">{value.title}</span>
+                      <span className="title">
+                        <img
+                          style={{ height: "100%" }}
+                          src={publicURL + value.thumbnail}
+                        />
+                      </span>
                     </a>
                   </li>
                 );
               })}
+              <li className={`nav-item`}>
+                <a
+                  target="_blank"
+                  href={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
+                  className={`nav-link `}
+                >
+                  <span className="title">
+                    <img style={{ height: "100%" }} src={activity} />
+                  </span>
+                </a>
+              </li>
+              <li className={`nav-item`}>
+                <a
+                  target="_blank"
+                  href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}
+                  className={`nav-link `}
+                >
+                  <span className="title">
+                    <img style={{ height: "100%" }} src={activity_match} />
+                  </span>
+                </a>
+              </li>
+              <li className={`nav-item`}>
+                <a
+                  href="#"
+                  className={`nav-link `}
+                  onClick={(e) => openStageModal()}
+                >
+                  <span className="title">
+                    Stg
+                  </span>
+                </a>
+              </li>
             </ul>
 
             <div className="tab-content mt-3">
@@ -401,26 +436,29 @@ function Subtopic() {
                   <div className="tab-pane-inner">
                     <div className="row">
                       {activeTabItem.cat_data !== null ? (
-                        pdfBlobUrl ? (
-                          // <Flipbook src={pdfBlobUrl} initialScale={0.5} />
-                          <iframe
-                            className="scroll"
-                            src={`pdfrender.html?pdf=${encodeURIComponent(
-                              publicURL + activeTabItem?.cat_data?.source
-                            )}`}
-                            style={{
-                              border: 0,
-                              width: "100%",
-                              height: "59vh",
-                              position: "absolute",
-                              top: "-30px",
-                            }}
-                            allowFullScreen
-                            frameBorder="0"
-                          ></iframe>
-                        ) : (
-                          <p>-</p>
-                        )
+                        // pdfBlobUrl ? (
+                        //   // <Flipbook src={pdfBlobUrl} initialScale={0.5} />
+                        //   <iframe
+                        //     className="scroll"
+                        //     src={`pdfrender.html?pdf=${encodeURIComponent(
+                        //       publicURL + activeTabItem?.cat_data?.source
+                        //     )}`}
+                        //     style={{
+                        //       border: 0,
+                        //       width: "100%",
+                        //       height: "59vh",
+                        //       position: "absolute",
+                        //       top: "-30px",
+                        //     }}
+                        //     allowFullScreen
+                        //     frameBorder="0"
+                        //   ></iframe>
+                        // ) : (
+                        //   <p>-</p>
+                        // )
+                        <LayeredSVG
+                          src={publicURL + activeTabItem?.cat_data?.source}
+                        />
                       ) : (
                         <p>No book available</p>
                       )}
@@ -436,9 +474,9 @@ function Subtopic() {
                         {activeTabItem?.cat_data?.source?.includes(
                           "youtube.com"
                         ) ||
-                        activeTabItem?.cat_data?.source?.includes(
-                          "youtu.be"
-                        ) ? (
+                          activeTabItem?.cat_data?.source?.includes(
+                            "youtu.be"
+                          ) ? (
                           <div
                             style={{ position: "relative", paddingTop: "42vh" }}
                           >
@@ -552,6 +590,7 @@ function Subtopic() {
                   </div>
                 </div>
               )}
+              {ShowStageModal && <StageModal StageonClose={closeStageModal} />}
             </div>
           </div>
         </div>
