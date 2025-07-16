@@ -383,7 +383,7 @@ function Subtopic() {
                                     <div className="content">
                                         <h4 className="text-theme-colored1 subtopic-text">
                                             WATER -{" "}
-                                            <span class="sub-topic-heading">
+                                            <span className="sub-topic-heading">
                                                 Introduction to water
                                             </span>
                                         </h4>
