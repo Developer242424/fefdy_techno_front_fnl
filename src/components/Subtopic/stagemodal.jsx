@@ -12,7 +12,7 @@ const StageModal = ({ StageonClose, ActiveLeftTab, TopicData }) => {
                 <div style={styles.content}>
                     <h2 className="stage_heading">Congratulations</h2>
                     <img className="clap_img" src={clapImg} alt="" />
-                    <h4>Your are complete the</h4>
+                    <h4>You are complete the</h4>
                     <h3>{TopicData?.title} - {ActiveLeftTab?.title}</h3>
                     <p className="mb-0">Your Score for this stage</p>
                     <h1 className="stage_score">{ActiveLeftTab?.got_mark}/{ActiveLeftTab?.ttl_mark}</h1>
