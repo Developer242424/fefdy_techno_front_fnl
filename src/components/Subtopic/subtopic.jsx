@@ -444,17 +444,6 @@ function Subtopic() {
                                     </span>
                                 </a>
                             </li>
-                            <li className={`nav-item`}>
-                                <a
-                                    href="#"
-                                    className={`nav-link `}
-                                    onClick={(e) => openStageModal()}
-                                >
-                                    <span className="title">
-                                        Stg
-                                    </span>
-                                </a>
-                            </li>
                         </ul>
 
                         <div className="tab-content mt-3">
