@@ -471,7 +471,27 @@ function Subtopic() {
                                     </li>
                                 );
                             })}
-                            <li className={`nav-item`}>
+                            <li
+                                className={`nav-item ${activeTabItem?.type === "chooseup" ? "active" : ""}`}
+                                onClick={() => setActiveTabItem({ type: "chooseup", id: "chooseup" })}
+                            >
+                                <a href="#" className={`nav-link ${activeTabItem?.type === "chooseup" ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
+                                    <span className="title">
+                                        <img style={{ height: "100%" }} src={activity} alt="Third Tab" />
+                                    </span>
+                                </a>
+                            </li>
+                            <li
+                                className={`nav-item ${activeTabItem?.type === "matchup" ? "active" : ""}`}
+                                onClick={() => setActiveTabItem({ type: "matchup", id: "matchup" })}
+                            >
+                                <a href="#" className={`nav-link ${activeTabItem?.type === "matchup" ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
+                                    <span className="title">
+                                        <img style={{ height: "100%" }} src={activity_match} alt="Third Tab" />
+                                    </span>
+                                </a>
+                            </li>
+                            {/* <li className={`nav-item`}>
                                 <a
                                     target="_blank"
                                     href={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
@@ -492,7 +512,7 @@ function Subtopic() {
                                         <img style={{ height: "100%" }} src={activity_match} />
                                     </span>
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
 
                         <div className="tab-content mt-3">
@@ -652,6 +672,24 @@ function Subtopic() {
                                         ) : (
                                             <p>No video available</p>
                                         )}
+                                    </div>
+                                </div>
+                            )}
+                            {activeTabItem?.type?.toLowerCase() === "chooseup" && (
+                                <div className="tab-pane fadeInLeft active show">
+                                    <div className="tab-pane-inner">
+                                        <div className="row">
+                                            <iframe className="responsive-iframe" src={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {activeTabItem?.type?.toLowerCase() === "matchup" && (
+                                <div className="tab-pane fadeInLeft active show">
+                                    <div className="tab-pane-inner">
+                                        <div className="row">
+                                            <iframe className="responsive-iframe" src={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             )}
