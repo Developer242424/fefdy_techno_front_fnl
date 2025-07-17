@@ -42,6 +42,8 @@ function Subtopic() {
     const openWholeStageModal = () => setWholeShowStageModal(true);
     const closeWholeStageModal = () => setWholeShowStageModal(false);
 
+    const [QuestionTypes, setQuestionTypes] = useState([]);
+
     useEffect(() => {
         if (!auth.token) navigate("/login");
         if (!level) navigate("/level");
@@ -104,8 +106,25 @@ function Subtopic() {
             }
         };
 
+        const fetchQuestionTypes = async () => {
+            try {
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}questiontypes`, {
+                    token: auth.token
+                });
+                if (res.data.status === 200) {
+                    setQuestionTypes(res.data.data);
+                } else {
+                    console.error("Error fetching data:", res.data.message);
+                    navigate("/login");
+                }
+            } catch (error) {
+                console.error("Error fetching topics:", error);
+            }
+        };
+
         fetchTopics();
         fetchSubtopics();
+        fetchQuestionTypes();
     }, [auth.token, navigate]);
 
     const getSubtopicsList = async () => {
@@ -471,48 +490,20 @@ function Subtopic() {
                                     </li>
                                 );
                             })}
-                            <li
-                                className={`nav-item ${activeTabItem?.type === "chooseup" ? "active" : ""}`}
-                                onClick={() => setActiveTabItem({ type: "chooseup", id: "chooseup" })}
-                            >
-                                <a href="#" className={`nav-link ${activeTabItem?.type === "chooseup" ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
-                                    <span className="title">
-                                        <img style={{ height: "100%" }} src={activity} alt="Third Tab" />
-                                    </span>
-                                </a>
-                            </li>
-                            <li
-                                className={`nav-item ${activeTabItem?.type === "matchup" ? "active" : ""}`}
-                                onClick={() => setActiveTabItem({ type: "matchup", id: "matchup" })}
-                            >
-                                <a href="#" className={`nav-link ${activeTabItem?.type === "matchup" ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
-                                    <span className="title">
-                                        <img style={{ height: "100%" }} src={activity_match} alt="Third Tab" />
-                                    </span>
-                                </a>
-                            </li>
-                            {/* <li className={`nav-item`}>
-                                <a
-                                    target="_blank"
-                                    href={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
-                                    className={`nav-link `}
-                                >
-                                    <span className="title">
-                                        <img style={{ height: "100%" }} src={activity} />
-                                    </span>
-                                </a>
-                            </li>
-                            <li className={`nav-item`}>
-                                <a
-                                    target="_blank"
-                                    href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}
-                                    className={`nav-link `}
-                                >
-                                    <span className="title">
-                                        <img style={{ height: "100%" }} src={activity_match} />
-                                    </span>
-                                </a>
-                            </li> */}
+                            {QuestionTypes && QuestionTypes.length > 0 && QuestionTypes.map((Qvalue, Qindex) => {
+                                return (
+                                    <li
+                                        className={`nav-item ${activeTabItem?.type === Qvalue.type ? "active" : ""}`}
+                                        onClick={() => setActiveTabItem({ type: Qvalue.type, id: Qvalue.type })}
+                                    >
+                                        <a href="#" className={`nav-link ${activeTabItem?.type === Qvalue.type ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
+                                            <span className="title">
+                                                <img style={{ height: "100%" }} src={publicURL + Qvalue.thumbnail} alt="Third Tab" />
+                                            </span>
+                                        </a>
+                                    </li>
+                                );
+                            })}
                         </ul>
 
                         <div className="tab-content mt-3">
@@ -521,26 +512,6 @@ function Subtopic() {
                                     <div className="tab-pane-inner">
                                         <div className="row">
                                             {activeTabItem.cat_data !== null ? (
-                                                // pdfBlobUrl ? (
-                                                //   // <Flipbook src={pdfBlobUrl} initialScale={0.5} />
-                                                //   <iframe
-                                                //     className="scroll"
-                                                //     src={`pdfrender.html?pdf=${encodeURIComponent(
-                                                //       publicURL + activeTabItem?.cat_data?.source
-                                                //     )}`}
-                                                //     style={{
-                                                //       border: 0,
-                                                //       width: "100%",
-                                                //       height: "59vh",
-                                                //       position: "absolute",
-                                                //       top: "-30px",
-                                                //     }}
-                                                //     allowFullScreen
-                                                //     frameBorder="0"
-                                                //   ></iframe>
-                                                // ) : (
-                                                //   <p>-</p>
-                                                // )
                                                 <LayeredSVG
                                                     src={publicURL + activeTabItem?.cat_data?.source}
                                                 />
@@ -675,31 +646,24 @@ function Subtopic() {
                                     </div>
                                 </div>
                             )}
-                            {activeTabItem?.type?.toLowerCase() === "chooseup" && (
-                                <div className="tab-pane fadeInLeft active show">
-                                    <div className="tab-pane-inner">
-                                        <div className="row">
-                                            <iframe className="responsive-iframe" src={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}></iframe>
+                            {QuestionTypes && QuestionTypes.length > 0 && QuestionTypes.map((Qvalue, Qindex) => {
+                                return (
+                                    <div className={`tab-pane fadeInLeft ${activeTabItem?.type === Qvalue.type ? `active show` : ``}`} >
+                                        <div className="tab-pane-inner">
+                                            <div className="row">
+                                                <iframe className="responsive-iframe" src={`${Qvalue.template}?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=${Qvalue.id}&ust=${auth.token}`}></iframe>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                            {activeTabItem?.type?.toLowerCase() === "matchup" && (
-                                <div className="tab-pane fadeInLeft active show">
-                                    <div className="tab-pane-inner">
-                                        <div className="row">
-                                            <iframe className="responsive-iframe" src={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
+                                );
+                            })}
                             {ShowStageModal && <StageModal StageonClose={closeStageModal} ActiveLeftTab={activeLeftTab} TopicData={topicData} />}
                             {WholeShowStageModal && <WholeStageModal WholeStageonClose={closeWholeStageModal} Percentage={percentage} TopicData={topicData} />}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

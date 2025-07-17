@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import LayeredSVG from "./LayeredSVG";
 import StageModal from "./stagemodal";
+import WholeStageModal from "./wholestagemodal";
 function Subtopic() {
   const publicURL = process.env.REACT_APP_PUBLIC_API_URL;
   const videoURL = "https://fefdygames.com/erpvideos/";
@@ -24,6 +25,7 @@ function Subtopic() {
   const subject = JSON.parse(localStorage.getItem("subject"));
   const topic = JSON.parse(localStorage.getItem("topic"));
   const level = JSON.parse(localStorage.getItem("level"));
+  const [topicData, setTopicData] = useState([]);
 
   const [videoDuration, setVideoDuration] = useState(0);
   const [playedSeconds, setPlayedSeconds] = useState(0);
@@ -35,6 +37,10 @@ function Subtopic() {
   const [ShowStageModal, setShowStageModal] = useState(false);
   const openStageModal = () => setShowStageModal(true);
   const closeStageModal = () => setShowStageModal(false);
+
+  const [WholeShowStageModal, setWholeShowStageModal] = useState(false);
+  const openWholeStageModal = () => setWholeShowStageModal(true);
+  const closeWholeStageModal = () => setWholeShowStageModal(false);
 
   useEffect(() => {
     if (!auth.token) navigate("/login");
@@ -48,6 +54,16 @@ function Subtopic() {
         });
         if (res.data.status === 200) {
           setTopics(res.data.data);
+          const topicsList = res.data.data;
+          const matchedTopic = topicsList.find(
+            (item) => item.id === parseInt(topic)
+          );
+          if (matchedTopic) {
+            setTopicData(matchedTopic);
+            // console.log("Matched Subject:", matchedTopic);
+          } else {
+            console.warn("No matching subject found for ID:", topic);
+          }
         } else {
           console.error("Error fetching data:", res.data.message);
           navigate("/login");
@@ -262,6 +278,66 @@ function Subtopic() {
   // console.log("sub len: "+subtopics.length);
   // console.log("comp sub len: "+completed_subs.length);
 
+  // console.log(activeLeftTab)
+
+  const [stageModalShowedIds, setStageModalShowedIds] = useState(() => {
+    const stored = localStorage.getItem('stageModalShowedIds');
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  const [stageModalShowedLevelIds, setstageModalShowedLevelIds] = useState(() => {
+    const storedLevel = localStorage.getItem('stageModalShowedLevelIds');
+    return storedLevel ? JSON.parse(storedLevel) : [];
+  });
+  const [percentage, setPercentage] = useState(0);
+
+  useEffect(() => {
+    if (activeLeftTab?.is_completed === 1) {
+      setStageModalShowedIds(prev => {
+        const updated = prev.includes(activeLeftTab?.id) ? prev : [...prev, activeLeftTab?.id];
+        localStorage.setItem('stageModalShowedIds', JSON.stringify(updated));
+        return updated;
+      });
+      if (!stageModalShowedIds.includes(activeLeftTab?.id)) {
+        openStageModal()
+      }
+    }
+
+    let ttl_marks = 0;
+    let got_marks = 0;
+
+    if (subtopics.length > 0) {
+      const is_comp_subtopics = subtopics.filter((item) => Number(item?.is_completed) === 1);
+
+      if (subtopics.length === is_comp_subtopics.length) {
+        ttl_marks = subtopics.reduce((sum, d) => sum + (d.ttl_mark || 0), 0);
+        got_marks = subtopics.reduce((sum, d) => sum + (d.got_mark || 0), 0);
+
+        const percentageCalc = Math.round((got_marks / ttl_marks) * 100);
+        setPercentage(percentageCalc);
+
+        // console.log("level", level);
+        setstageModalShowedLevelIds(prev => {
+          const updatedLevelId = prev.includes(level) ? prev : [...prev, level];
+          localStorage.setItem('stageModalShowedLevelIds', JSON.stringify(updatedLevelId));
+          return updatedLevelId;
+        });
+        if (!stageModalShowedLevelIds.includes(level)) {
+          openWholeStageModal();
+        }
+      }
+    }
+
+    // console.log("stageModalShowedLevelIds (immediate):", stageModalShowedLevelIds);
+
+  }, [activeLeftTab]);
+
+  useEffect(() => {
+    if (stageModalShowedIds.length > 0) {
+      // console.log("Stored ids", stageModalShowedIds.join(","));
+    }
+  }, [stageModalShowedIds]);
+
   return (
     <div className="section-content">
       <div className="row">
@@ -287,7 +363,7 @@ function Subtopic() {
                 ))
               ) : (
                 /* <p>Data not found</p>*/
-                <div class="loader"></div>
+                <div className="loader"></div>
               )}
             </div>
           </div>
@@ -307,7 +383,7 @@ function Subtopic() {
                   <div className="content">
                     <h4 className="text-theme-colored1 subtopic-text">
                       WATER -{" "}
-                      <span class="sub-topic-heading">
+                      <span className="sub-topic-heading">
                         Introduction to water
                       </span>
                     </h4>
@@ -395,39 +471,48 @@ function Subtopic() {
                   </li>
                 );
               })}
-              <li className={`nav-item`}>
-                <a
-                  target="_blank"
-                  href={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
-                  className={`nav-link `}
-                >
+              <li
+                className={`nav-item ${activeTabItem?.type === "chooseup" ? "active" : ""}`}
+                onClick={() => setActiveTabItem({ type: "chooseup", id: "chooseup" })}
+              >
+                <a href="#" className={`nav-link ${activeTabItem?.type === "chooseup" ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
                   <span className="title">
-                    <img style={{ height: "100%" }} src={activity} />
+                    <img style={{ height: "100%" }} src={activity} alt="Third Tab" />
                   </span>
                 </a>
               </li>
-              <li className={`nav-item`}>
-                <a
-                  target="_blank"
-                  href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}
-                  className={`nav-link `}
-                >
+              <li
+                className={`nav-item ${activeTabItem?.type === "matchup" ? "active" : ""}`}
+                onClick={() => setActiveTabItem({ type: "matchup", id: "matchup" })}
+              >
+                <a href="#" className={`nav-link ${activeTabItem?.type === "matchup" ? "active" : ""}`} onClick={(e) => e.preventDefault()}>
                   <span className="title">
-                    <img style={{ height: "100%" }} src={activity_match} />
+                    <img style={{ height: "100%" }} src={activity_match} alt="Third Tab" />
                   </span>
                 </a>
               </li>
-              <li className={`nav-item`}>
-                <a
-                  href="#"
-                  className={`nav-link `}
-                  onClick={(e) => openStageModal()}
-                >
-                  <span className="title">
-                    Stg
-                  </span>
-                </a>
-              </li>
+              {/* <li className={`nav-item`}>
+                                <a
+                                    target="_blank"
+                                    href={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}
+                                    className={`nav-link `}
+                                >
+                                    <span className="title">
+                                        <img style={{ height: "100%" }} src={activity} />
+                                    </span>
+                                </a>
+                            </li>
+                            <li className={`nav-item`}>
+                                <a
+                                    target="_blank"
+                                    href={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}
+                                    className={`nav-link `}
+                                >
+                                    <span className="title">
+                                        <img style={{ height: "100%" }} src={activity_match} />
+                                    </span>
+                                </a>
+                            </li> */}
             </ul>
 
             <div className="tab-content mt-3">
@@ -590,7 +675,26 @@ function Subtopic() {
                   </div>
                 </div>
               )}
-              {ShowStageModal && <StageModal StageonClose={closeStageModal} />}
+              {activeTabItem?.type?.toLowerCase() === "chooseup" && (
+                <div className="tab-pane fadeInLeft active show">
+                  <div className="tab-pane-inner">
+                    <div className="row">
+                      <iframe className="responsive-iframe" src={`https://feboo.fefdybraingym.com/admin/chooseup?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=1&ust=${auth.token}`}></iframe>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {activeTabItem?.type?.toLowerCase() === "matchup" && (
+                <div className="tab-pane fadeInLeft active show">
+                  <div className="tab-pane-inner">
+                    <div className="row">
+                      <iframe className="responsive-iframe" src={`https://feboo.fefdybraingym.com/admin/match?sid=${subject}&tid=${topic}&lid=${level}&stid=${activeLeftTab?.id}&qid=2&ust=${auth.token}`}></iframe>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {ShowStageModal && <StageModal StageonClose={closeStageModal} ActiveLeftTab={activeLeftTab} TopicData={topicData} />}
+              {WholeShowStageModal && <WholeStageModal WholeStageonClose={closeWholeStageModal} Percentage={percentage} TopicData={topicData} />}
             </div>
           </div>
         </div>
