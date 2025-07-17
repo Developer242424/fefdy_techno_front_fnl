@@ -40,16 +40,15 @@ const styles = {
     },
     modal: {
         backgroundColor: "#fff",
-        backgroundImage: `url(${particlesGif})`,
+
         backgroundSize: "cover",      // Optional: make it fit the modal
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         padding: "20px",
-        borderRadius: "8px",
-        width: "60%",
-        height: "630px",
+        width: "100%",
+        height: "100%",
         textAlign: "center",
-        border: "3px solid #fd6abb",
+
         position: "relative",
         overflow: "hidden",
 

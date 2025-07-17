@@ -101,6 +101,8 @@ ul {
 
 .rotate-icon {
     transition: transform 0.3s ease-in-out;
+    position: absolute;
+    right: 20px;
 }
 
 /* Rotate the arrow when the accordion item is opened */
@@ -121,6 +123,7 @@ ul {
 
 .card-header h5 {
     color: #fff;
+    gap: 10px;
 }
 
 table td a {
@@ -206,4 +209,22 @@ img {
     width: 100%;
     display: block;
     position: relative;
+}
+
+.subtopic_score {
+    color: #c93f8b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.level_score {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.topic_score {
+    color: #fff;
+    font-size: 22px;
 }

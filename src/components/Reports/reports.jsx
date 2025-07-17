@@ -153,6 +153,7 @@ const Reports = () => {
                                                 ></i>
                                               )}{" "}
                                               {Tvalue.title}
+                                              <span className="topic_score"> (50%)</span>
                                             </th>
                                           );
                                         })}
@@ -201,12 +202,12 @@ const Reports = () => {
                                                             aria-expanded="false"
                                                             aria-controls={`collapse${Lvalue.id}_${Lindex}`}
                                                           >
-                                                            <h5 class="d-flex justify-content-between align-items-center">
+                                                            <h5 class="d-flex align-items-center ">
                                                               <span>
                                                                 {Lvalue.title}
-                                                              </span>
+                                                              </span><span className="level_score">(30%)</span>
                                                               <i
-                                                                class="fas fa-chevron-down rotate-icon"
+                                                                class="fas fa-chevron-down rotate-icon "
                                                                 data-toggle="collapse"
                                                                 data-target={`#collapse${Lvalue.id}_${Lindex}`}
                                                                 aria-expanded="false"
@@ -261,7 +262,7 @@ const Reports = () => {
                                                                               {
                                                                                 Svalue.title
                                                                               }
-                                                                            </a>
+                                                                              <span className="subtopic_score"> (5 / 10)</span>  </a>
                                                                           </td>
                                                                         </tr>
                                                                       );
