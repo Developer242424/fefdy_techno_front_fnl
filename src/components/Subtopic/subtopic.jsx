@@ -317,9 +317,9 @@ function Subtopic() {
                 localStorage.setItem('stageModalShowedIds', JSON.stringify(updated));
                 return updated;
             });
-            // if (!stageModalShowedIds.includes(activeLeftTab?.id)) {
-            openStageModal()
-            // }
+            if (!stageModalShowedIds.includes(activeLeftTab?.id)) {
+                openStageModal()
+            }
         }
 
         let ttl_marks = 0;

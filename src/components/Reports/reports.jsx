@@ -165,6 +165,7 @@ const Reports = () => {
                                         topicsArr.length > 0 &&
                                         topicsArr.map((Tvalue1, Tindex1) => {
                                           const levelsArr = Tvalue1.levels;
+                                          const questionTypesArr = Tvalue1.question_types;
                                           levelsArr.sort(
                                             (a, b) => a.its_level - b.its_level
                                           );
@@ -182,11 +183,7 @@ const Reports = () => {
                                                       const allSubtopicsComplete =
                                                         subtopicsArr?.length > 0
                                                           ? subtopicsArr.every(
-                                                            (s) =>
-                                                              s.complete_count >=
-                                                              JSON.parse(
-                                                                s.category
-                                                              ).length
+                                                            (s) => s.complete_count >= JSON.parse(s.category).length && s.ttl_mark > 0
                                                           )
                                                           : false;
                                                       return (
@@ -228,45 +225,22 @@ const Reports = () => {
                                                               }}
                                                             >
                                                               <table className="accord">
-                                                                {subtopicsArr &&
-                                                                  subtopicsArr.length >
-                                                                  0 &&
-                                                                  subtopicsArr.map(
-                                                                    (
-                                                                      Svalue,
-                                                                      Sindex
-                                                                    ) => {
-                                                                      const subCat =
-                                                                        JSON.parse(
-                                                                          Svalue.category
-                                                                        );
-                                                                      const isComplete =
-                                                                        Svalue.complete_count >=
-                                                                        subCat.length;
-                                                                      return (
-                                                                        <tr
-                                                                          key={
-                                                                            Sindex
-                                                                          }
-                                                                          style={
-                                                                            isComplete
-                                                                              ? {
-                                                                                background:
-                                                                                  "#AFEEB8",
-                                                                              }
-                                                                              : {}
-                                                                          }
-                                                                        >
-                                                                          <td>
-                                                                            <a href="#">
-                                                                              {
-                                                                                Svalue.title
-                                                                              }
-                                                                              <span className="subtopic_score"> (5 / 10)</span>  </a>
-                                                                          </td>
-                                                                        </tr>
-                                                                      );
-                                                                    }
+                                                                {subtopicsArr && subtopicsArr.length > 0 &&
+                                                                  subtopicsArr.map((Svalue, Sindex) => {
+                                                                    const subCat = JSON.parse(Svalue.category);
+                                                                    const isComplete = Svalue.complete_count >= subCat.length && Svalue.question_types.length === questionTypesArr.length;
+                                                                    return (
+                                                                      <tr key={Sindex}
+                                                                        style={isComplete ? { background: "#AFEEB8", } : {}}
+                                                                      >
+                                                                        <td>
+                                                                          <a href="#">
+                                                                            {Svalue.title}
+                                                                            <span className="subtopic_score"> ({Svalue.got_mark} / {Svalue.ttl_mark})</span>  </a>
+                                                                        </td>
+                                                                      </tr>
+                                                                    );
+                                                                  }
                                                                   )}
                                                               </table>
                                                             </div>
