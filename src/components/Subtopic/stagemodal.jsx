@@ -45,8 +45,8 @@ const styles = {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         padding: "20px",
-        width: "100%",
-        height: "100%",
+        width: "40%",
+        height: "63%",
         textAlign: "center",
 
         position: "relative",

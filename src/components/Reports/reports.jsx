@@ -146,6 +146,9 @@ const Reports = () => {
                                               : false;
                                           return (
                                             <th style={{ width: "700px" }}>
+                                              <div class="progress_1">
+                                                <div class="progress-bar w-50" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                              </div>
                                               {allLevelsComplete && (
                                                 <i
                                                   class="fa fa-check subject_check"
@@ -153,7 +156,7 @@ const Reports = () => {
                                                 ></i>
                                               )}{" "}
                                               {Tvalue.title}
-                                              <span className="topic_score"> (50%)</span>
+                                              {/* <span className="topic_score"> 50%</span> */}
                                             </th>
                                           );
                                         })}
@@ -205,7 +208,7 @@ const Reports = () => {
                                                             <h5 class="d-flex align-items-center ">
                                                               <span>
                                                                 {Lvalue.title}
-                                                              </span><span className="level_score">(30%)</span>
+                                                              </span><span className="level_score blink-soft">30%</span>
                                                               <i
                                                                 class="fas fa-chevron-down rotate-icon "
                                                                 data-toggle="collapse"
@@ -213,6 +216,7 @@ const Reports = () => {
                                                                 aria-expanded="false"
                                                                 aria-controls={`collapse${Lvalue.id}_${Lindex}`}
                                                               ></i>
+
                                                             </h5>
                                                           </div>
                                                           <div
@@ -252,7 +256,7 @@ const Reports = () => {
                                                                             isComplete
                                                                               ? {
                                                                                 background:
-                                                                                  "#AFEEB8",
+                                                                                  "rgb(215 255 220)",
                                                                               }
                                                                               : {}
                                                                           }
