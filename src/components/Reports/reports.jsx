@@ -112,7 +112,7 @@ const Reports = () => {
                                           const levelsArr = [...Tvalue.levels].sort(
                                             (a, b) => a.its_level - b.its_level
                                           );
-                                          const allLevelsComplete =
+                                          const allLevelsComplete1 =
                                             levelsArr.length > 0 &&
                                             levelsArr.every(
                                               (level) =>
@@ -125,17 +125,40 @@ const Reports = () => {
                                                     Tvalue.question_types.length
                                                 )
                                             );
+                                          const questionTypes = Tvalue.question_types || [];
+
+                                          const totalLevels = levelsArr.length;
+
+                                          const completedLevels = levelsArr.filter((level) => {
+                                            const subtopics = level.subtopics || [];
+                                            return (
+                                              subtopics.length > 0 &&
+                                              subtopics.every(
+                                                (sub) =>
+                                                  sub.complete_count >= JSON.parse(sub.category).length &&
+                                                  sub.question_types.length === questionTypes.length
+                                              )
+                                            );
+                                          }).length;
+
+                                          const topicPercentage =
+                                            totalLevels > 0
+                                              ? Math.round((completedLevels / totalLevels) * 100)
+                                              : 0;
+
+                                          const allLevelsComplete = topicPercentage === 100;
                                           return (
-                                            <th key={Tvalue.id} style={{ width: "700px" }}>
+                                            <th key={Tvalue.id} style={{ width: `700px` }}>
                                               <div className="progress_1">
                                                 <div
-                                                  className="progress-bar w-50"
+                                                  className={`progress-bar w-${topicPercentage}`}
                                                   role="progressbar"
+                                                  style={{ width: `${topicPercentage}%` }}
                                                   aria-valuenow="100"
                                                   aria-valuemin="0"
                                                   aria-valuemax="100"
                                                 >
-                                                  50%
+                                                  {topicPercentage}%
                                                 </div>
                                               </div>
                                               {allLevelsComplete && (
@@ -169,6 +192,11 @@ const Reports = () => {
                                                         s.question_types.length ===
                                                         questionTypesArr.length
                                                     );
+
+                                                  const ttl_marks = subtopicsArr.reduce((sum, d) => sum + (d.ttl_mark || 0), 0);
+                                                  const got_marks = subtopicsArr.reduce((sum, d) => sum + (d.got_mark || 0), 0);
+                                                  const percentageCalc = Math.round((got_marks / ttl_marks) * 100);
+
                                                   return (
                                                     <div className="card" key={Lvalue.id}>
                                                       <div
@@ -183,7 +211,7 @@ const Reports = () => {
                                                         <h5 className="d-flex align-items-center">
                                                           <span>{Lvalue.title}</span>
                                                           <span className="level_score blink-soft">
-                                                            30%
+                                                            {!Number.isNaN(percentageCalc) ? percentageCalc : 0}%
                                                           </span>
                                                           <i
                                                             className="fas fa-chevron-down rotate-icon"
