@@ -58,7 +58,7 @@ table.table-fixed thead th {
     font-size: 26px;
     position: sticky;
     top: 0;
-    padding: 20px;
+    padding: 30px 60px 20px 30px;
     z-index: 2;
 }
 
@@ -118,7 +118,7 @@ ul {
 }
 
 .card-header.complete {
-    background-color: #228322;
+    background-color: #66c373;
 }
 
 .card-header h5 {
@@ -215,14 +215,14 @@ img {
     color: #c93f8b;
     font-size: 12px;
     font-weight: 600;
-    /* background: #fff; */
+    background: #fff;
     border-radius: 40px;
-    padding: 10px;
-    margin: 2px;
+    padding: 6px;
+    margin: 5px;
 }
 
 .level_score {
-    color: #fff56c;
+    color: #fffa1c;
     font-size: 21px;
     font-weight: 600;
     font-family: 'Courier New', Courier, monospace;
@@ -244,4 +244,35 @@ img {
     padding: 8px;
     margin: 20px;
 
+}
+
+.blink-soft {
+    animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.progress_1 {
+    position: absolute;
+    top: 1%;
+    left: 0px;
+    width: 100%;
+    height: 10%;
+    z-index: 1;
+    transition: 0.4s ease;
+    border-left: 2px dotted #34820d;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    display: flex;
+}
+
+
+.progress-bar {
+    background-color: #34812a;
 }

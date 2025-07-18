@@ -146,6 +146,9 @@ const Reports = () => {
                                               : false;
                                           return (
                                             <th style={{ width: "700px" }}>
+                                              <div class="progress_1">
+                                                <div class="progress-bar w-50" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                              </div>
                                               {allLevelsComplete && (
                                                 <i
                                                   class="fa fa-check subject_check"
@@ -153,7 +156,7 @@ const Reports = () => {
                                                 ></i>
                                               )}{" "}
                                               {Tvalue.title}
-                                              <span className="topic_score"> (50%)</span>
+                                              {/* <span className="topic_score"> 50%</span> */}
                                             </th>
                                           );
                                         })}
@@ -202,7 +205,7 @@ const Reports = () => {
                                                             <h5 class="d-flex align-items-center ">
                                                               <span>
                                                                 {Lvalue.title}
-                                                              </span><span className="level_score">(30%)</span>
+                                                              </span><span className="level_score blink-soft">30%</span>
                                                               <i
                                                                 class="fas fa-chevron-down rotate-icon "
                                                                 data-toggle="collapse"
@@ -210,6 +213,7 @@ const Reports = () => {
                                                                 aria-expanded="false"
                                                                 aria-controls={`collapse${Lvalue.id}_${Lindex}`}
                                                               ></i>
+
                                                             </h5>
                                                           </div>
                                                           <div
@@ -225,6 +229,7 @@ const Reports = () => {
                                                               }}
                                                             >
                                                               <table className="accord">
+<<<<<<< HEAD
                                                                 {subtopicsArr && subtopicsArr.length > 0 &&
                                                                   subtopicsArr.map((Svalue, Sindex) => {
                                                                     const subCat = JSON.parse(Svalue.category);
@@ -241,6 +246,47 @@ const Reports = () => {
                                                                       </tr>
                                                                     );
                                                                   }
+=======
+                                                                {subtopicsArr &&
+                                                                  subtopicsArr.length >
+                                                                  0 &&
+                                                                  subtopicsArr.map(
+                                                                    (
+                                                                      Svalue,
+                                                                      Sindex
+                                                                    ) => {
+                                                                      const subCat =
+                                                                        JSON.parse(
+                                                                          Svalue.category
+                                                                        );
+                                                                      const isComplete =
+                                                                        Svalue.complete_count >=
+                                                                        subCat.length;
+                                                                      return (
+                                                                        <tr
+                                                                          key={
+                                                                            Sindex
+                                                                          }
+                                                                          style={
+                                                                            isComplete
+                                                                              ? {
+                                                                                background:
+                                                                                  "rgb(215 255 220)",
+                                                                              }
+                                                                              : {}
+                                                                          }
+                                                                        >
+                                                                          <td>
+                                                                            <a href="#">
+                                                                              {
+                                                                                Svalue.title
+                                                                              }
+                                                                              <span className="subtopic_score"> (5 / 10)</span>  </a>
+                                                                          </td>
+                                                                        </tr>
+                                                                      );
+                                                                    }
+>>>>>>> 53e1fdd7110708c114f4c4bef6cf9517001da948
                                                                   )}
                                                               </table>
                                                             </div>
