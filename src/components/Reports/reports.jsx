@@ -8,7 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 const Reports = () => {
   const publicURL = process.env.REACT_APP_PUBLIC_API_URL;
   const [showCertificateModal, setShowCertificateModal] = useState(false);
-  const { logout, auth, isLoading, setCommonError } = useAuth();
+  const { auth } = useAuth();
   const [reportsData, setreportsData] = useState(null);
   const [usedApi, setUseApi] = useState(false);
 
@@ -24,18 +24,12 @@ const Reports = () => {
             token: auth.token,
           }
         );
-        // console.log(res);
         const resData = res.data;
         if (resData.status === 200) {
           const reportsList = resData.data[0];
-          // console.log(reportsList);
           setUseApi(true);
           setreportsData(reportsList);
-        } else if (resData.status === 401) {
-          console.error("Error fetching data:", resData.message);
-        } else if (resData.status === 400) {
-          console.log("Error fetching data:", resData.message);
-        } else if (resData.status === 500) {
+        } else {
           console.error("Error fetching data:", resData.message);
         }
       } catch (err) {
@@ -43,10 +37,10 @@ const Reports = () => {
       }
     };
 
-    if (usedApi === false) {
+    if (!usedApi) {
       fetchSubjects();
     }
-  }, []);
+  }, [auth.token, usedApi]);
 
   return (
     <div>
@@ -54,7 +48,7 @@ const Reports = () => {
         {showCertificateModal && <CertificateModal onClose={closeModal} />}
         <div className="row">
           <div className="col-lg-12">
-            <div className="tm-sc-nav-tabs_1-pricing-reports  sub nav-tab-btn-button button-rounded">
+            <div className="tm-sc-nav-tabs_1-pricing-reports sub nav-tab-btn-button button-rounded">
               <div className="gallery col-lg-12">
                 <div className="row gal">
                   <div className="col-lg-12">
@@ -62,17 +56,12 @@ const Reports = () => {
                       <div className="col-lg-8 scroll_tab">
                         <ul className="nav nav-tabs_1" id="myTab" role="tablist">
                           {reportsData &&
-                            reportsData.length > 0 &&
                             reportsData.map((value, index) => {
-                              const sanitizedSubject = value.subject.replace(
-                                /\s+/g,
-                                ""
-                              );
+                              const sanitizedSubject = value.subject.replace(/\s+/g, "");
                               return (
-                                <li class="nav-item">
+                                <li className="nav-item" key={value.id}>
                                   <a
-                                    class={`nav-link ${index === 0 ? `active` : ``
-                                      }`}
+                                    className={`nav-link ${index === 0 ? "active" : ""}`}
                                     id={`${sanitizedSubject + value.id}-tab`}
                                     data-toggle="tab"
                                     href={`#${sanitizedSubject + value.id}`}
@@ -93,7 +82,7 @@ const Reports = () => {
                               );
                             })}
                         </ul>
-                      </div>{" "}
+                      </div>
                       <div className="col-lg-4 text-right">
                         <button onClick={openModal} className="btn btn-primary">
                           View Certificate
@@ -103,60 +92,56 @@ const Reports = () => {
 
                     <div className="tab-content" id="myTabContent">
                       {reportsData &&
-                        reportsData.length > 0 &&
                         reportsData.map((value, index) => {
-                          const TsanitizedSubject = value.subject.replace(
-                            /\s+/g,
-                            ""
-                          );
+                          const sanitizedSubject = value.subject.replace(/\s+/g, "");
                           const topicsArr = value.topics;
                           return (
                             <div
-                              class={`tab-pane fade ${index === 0 ? `show active` : ``
-                                }`}
-                              id={`${TsanitizedSubject + value.id}`}
+                              className={`tab-pane fade ${index === 0 ? "show active" : ""}`}
+                              id={`${sanitizedSubject + value.id}`}
                               role="tabpanel"
-                              aria-labelledby={`${TsanitizedSubject + value.id
-                                }-tab`}
+                              aria-labelledby={`${sanitizedSubject + value.id}-tab`}
+                              key={value.id}
                             >
-                              <div class="table-container">
-                                <table class="table-fixed">
+                              <div className="table-container">
+                                <table className="table-fixed">
                                   <thead>
                                     <tr>
                                       {topicsArr &&
-                                        topicsArr.length > 0 &&
-                                        topicsArr.map((Tvalue, Tindex) => {
-                                          const levelsArr1 = Tvalue.levels;
-                                          levelsArr1.sort(
+                                        topicsArr.map((Tvalue) => {
+                                          const levelsArr = [...Tvalue.levels].sort(
                                             (a, b) => a.its_level - b.its_level
                                           );
                                           const allLevelsComplete =
-                                            levelsArr1.length > 0
-                                              ? levelsArr1.every(
-                                                (level) =>
-                                                  level.subtopics?.length >
-                                                  0 &&
-                                                  level.subtopics.every(
-                                                    (sub) =>
-                                                      sub.complete_count >=
-                                                      JSON.parse(sub.category)
-                                                        .length
-                                                  )
-                                              )
-                                              : false;
+                                            levelsArr.length > 0 &&
+                                            levelsArr.every(
+                                              (level) =>
+                                                level.subtopics?.length > 0 &&
+                                                level.subtopics.every(
+                                                  (sub) =>
+                                                    sub.complete_count >=
+                                                    JSON.parse(sub.category).length &&
+                                                    sub.question_types.length ===
+                                                    Tvalue.question_types.length
+                                                )
+                                            );
                                           return (
-                                            <th style={{ width: "700px" }}>
-                                              <div class="progress_1">
-                                                <div class="progress-bar w-50" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                            <th key={Tvalue.id} style={{ width: "700px" }}>
+                                              <div className="progress_1">
+                                                <div
+                                                  className="progress-bar w-50"
+                                                  role="progressbar"
+                                                  aria-valuenow="100"
+                                                  aria-valuemin="0"
+                                                  aria-valuemax="100"
+                                                >
+                                                  50%
+                                                </div>
                                               </div>
                                               {allLevelsComplete && (
-                                                <i
-                                                  class="fa fa-check subject_check"
-                                                  aria-hidden="true"
-                                                ></i>
+                                                <i className="fa fa-check subject_check" />
                                               )}{" "}
                                               {Tvalue.title}
-                                              {/* <span className="topic_score"> 50%</span> */}
                                             </th>
                                           );
                                         })}
@@ -165,136 +150,90 @@ const Reports = () => {
                                   <tbody>
                                     <tr>
                                       {topicsArr &&
-                                        topicsArr.length > 0 &&
                                         topicsArr.map((Tvalue1, Tindex1) => {
-                                          const levelsArr = Tvalue1.levels;
-                                          const questionTypesArr = Tvalue1.question_types;
-                                          levelsArr.sort(
+                                          const levelsArr = [...Tvalue1.levels].sort(
                                             (a, b) => a.its_level - b.its_level
                                           );
+                                          const questionTypesArr = Tvalue1.question_types;
                                           return (
-                                            <td>
-                                              <div
-                                                id={`accordion${Tvalue1.id}_${Tindex1}`}
-                                              >
-                                                {levelsArr &&
-                                                  levelsArr.length > 0 &&
-                                                  levelsArr.map(
-                                                    (Lvalue, Lindex) => {
-                                                      const subtopicsArr =
-                                                        Lvalue.subtopics;
-                                                      const allSubtopicsComplete =
-                                                        subtopicsArr?.length > 0
-                                                          ? subtopicsArr.every(
-                                                            (s) => s.complete_count >= JSON.parse(s.category).length && s.ttl_mark > 0
-                                                          )
-                                                          : false;
-                                                      return (
-                                                        <div class="card">
-                                                          <div
-                                                            class={`card-header ${allSubtopicsComplete
-                                                              ? `complete`
-                                                              : ``
-                                                              }`}
-                                                            id={`heading${Lvalue.id}_${Lindex}`}
+                                            <td key={Tvalue1.id}>
+                                              <div id={`accordion${Tvalue1.id}_${Tindex1}`}>
+                                                {levelsArr.map((Lvalue, Lindex) => {
+                                                  const subtopicsArr = Lvalue.subtopics;
+                                                  const allSubtopicsComplete =
+                                                    subtopicsArr?.length > 0 &&
+                                                    subtopicsArr.every(
+                                                      (s) =>
+                                                        s.complete_count >=
+                                                        JSON.parse(s.category).length &&
+                                                        s.question_types.length ===
+                                                        questionTypesArr.length
+                                                    );
+                                                  return (
+                                                    <div className="card" key={Lvalue.id}>
+                                                      <div
+                                                        className={`card-header ${allSubtopicsComplete ? "complete" : ""
+                                                          }`}
+                                                        id={`heading${Lvalue.id}_${Lindex}`}
+                                                        data-toggle="collapse"
+                                                        data-target={`#collapse${Lvalue.id}_${Lindex}`}
+                                                        aria-expanded="false"
+                                                        aria-controls={`collapse${Lvalue.id}_${Lindex}`}
+                                                      >
+                                                        <h5 className="d-flex align-items-center">
+                                                          <span>{Lvalue.title}</span>
+                                                          <span className="level_score blink-soft">
+                                                            30%
+                                                          </span>
+                                                          <i
+                                                            className="fas fa-chevron-down rotate-icon"
                                                             data-toggle="collapse"
                                                             data-target={`#collapse${Lvalue.id}_${Lindex}`}
                                                             aria-expanded="false"
                                                             aria-controls={`collapse${Lvalue.id}_${Lindex}`}
-                                                          >
-                                                            <h5 class="d-flex align-items-center ">
-                                                              <span>
-                                                                {Lvalue.title}
-                                                              </span><span className="level_score blink-soft">30%</span>
-                                                              <i
-                                                                class="fas fa-chevron-down rotate-icon "
-                                                                data-toggle="collapse"
-                                                                data-target={`#collapse${Lvalue.id}_${Lindex}`}
-                                                                aria-expanded="false"
-                                                                aria-controls={`collapse${Lvalue.id}_${Lindex}`}
-                                                              ></i>
-
-                                                            </h5>
-                                                          </div>
-                                                          <div
-                                                            id={`collapse${Lvalue.id}_${Lindex}`}
-                                                            class="collapse"
-                                                            aria-labelledby={`heading${Lvalue.id}_${Lindex}`}
-                                                            data-parent={`#accordion${Tvalue1.id}_${Tindex1}`}
-                                                          >
-                                                            <div
-                                                              class="card-body"
-                                                              style={{
-                                                                padding: "0px",
-                                                              }}
-                                                            >
-                                                              <table className="accord">
-<<<<<<< HEAD
-                                                                {subtopicsArr && subtopicsArr.length > 0 &&
-                                                                  subtopicsArr.map((Svalue, Sindex) => {
-                                                                    const subCat = JSON.parse(Svalue.category);
-                                                                    const isComplete = Svalue.complete_count >= subCat.length && Svalue.question_types.length === questionTypesArr.length;
-                                                                    return (
-                                                                      <tr key={Sindex}
-                                                                        style={isComplete ? { background: "#AFEEB8", } : {}}
-                                                                      >
-                                                                        <td>
-                                                                          <a href="#">
-                                                                            {Svalue.title}
-                                                                            <span className="subtopic_score"> ({Svalue.got_mark} / {Svalue.ttl_mark})</span>  </a>
-                                                                        </td>
-                                                                      </tr>
-                                                                    );
+                                                          ></i>
+                                                        </h5>
+                                                      </div>
+                                                      <div
+                                                        id={`collapse${Lvalue.id}_${Lindex}`}
+                                                        className="collapse"
+                                                        aria-labelledby={`heading${Lvalue.id}_${Lindex}`}
+                                                        data-parent={`#accordion${Tvalue1.id}_${Tindex1}`}
+                                                      >
+                                                        <div className="card-body" style={{ padding: "0px" }}>
+                                                          <table className="accord">
+                                                            {subtopicsArr.map((Svalue, Sindex) => {
+                                                              const subCat = JSON.parse(Svalue.category);
+                                                              const isComplete =
+                                                                Svalue.complete_count >= subCat.length &&
+                                                                Svalue.question_types.length === questionTypesArr.length;
+                                                              return (
+                                                                <tr
+                                                                  key={Sindex}
+                                                                  style={
+                                                                    isComplete
+                                                                      ? { background: "#AFEEB8" }
+                                                                      : {}
                                                                   }
-=======
-                                                                {subtopicsArr &&
-                                                                  subtopicsArr.length >
-                                                                  0 &&
-                                                                  subtopicsArr.map(
-                                                                    (
-                                                                      Svalue,
-                                                                      Sindex
-                                                                    ) => {
-                                                                      const subCat =
-                                                                        JSON.parse(
-                                                                          Svalue.category
-                                                                        );
-                                                                      const isComplete =
-                                                                        Svalue.complete_count >=
-                                                                        subCat.length;
-                                                                      return (
-                                                                        <tr
-                                                                          key={
-                                                                            Sindex
-                                                                          }
-                                                                          style={
-                                                                            isComplete
-                                                                              ? {
-                                                                                background:
-                                                                                  "rgb(215 255 220)",
-                                                                              }
-                                                                              : {}
-                                                                          }
-                                                                        >
-                                                                          <td>
-                                                                            <a href="#">
-                                                                              {
-                                                                                Svalue.title
-                                                                              }
-                                                                              <span className="subtopic_score"> (5 / 10)</span>  </a>
-                                                                          </td>
-                                                                        </tr>
-                                                                      );
-                                                                    }
->>>>>>> 53e1fdd7110708c114f4c4bef6cf9517001da948
-                                                                  )}
-                                                              </table>
-                                                            </div>
-                                                          </div>
+                                                                >
+                                                                  <td>
+                                                                    <a href="#">
+                                                                      {Svalue.title}
+                                                                      <span className="subtopic_score">
+                                                                        {" "}
+                                                                        ({Svalue.got_mark} / {Svalue.ttl_mark})
+                                                                      </span>
+                                                                    </a>
+                                                                  </td>
+                                                                </tr>
+                                                              );
+                                                            })}
+                                                          </table>
                                                         </div>
-                                                      );
-                                                    }
-                                                  )}
+                                                      </div>
+                                                    </div>
+                                                  );
+                                                })}
                                               </div>
                                             </td>
                                           );
